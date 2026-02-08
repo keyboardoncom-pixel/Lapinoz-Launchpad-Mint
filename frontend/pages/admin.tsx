@@ -7,6 +7,7 @@ import {
   getReadContract,
   getWriteContract,
   isSameAddress,
+  MINTNFT_ABI,
   TARGET_CHAIN_ID,
 } from "../lib/contract";
 import WalletMenu from "../components/WalletMenu";
@@ -55,9 +56,22 @@ export default function Admin() {
   const isTargetChain = TARGET_CHAIN_ID ? !!chain && chain.id === TARGET_CHAIN_ID : true;
   const isCorrectChain = isSupportedChain && isTargetChain;
 
+  const getAdminReadContract = async () => {
+    if (connector) {
+      try {
+        const provider = await connector.getProvider();
+        const ethersProvider = new ethers.providers.Web3Provider(provider);
+        return new ethers.Contract(CONTRACT_ADDRESS, MINTNFT_ABI, ethersProvider);
+      } catch {
+        // fall back to RPC provider below
+      }
+    }
+    return getReadContract();
+  };
+
   const refresh = async () => {
     try {
-      const contract = getReadContract();
+      const contract = await getAdminReadContract();
       const [ownerAddress, isPaused, locked, isRevealed, currentBaseURI, price, maxPerWallet] =
         await Promise.all([
           contract.owner(),
@@ -91,9 +105,14 @@ export default function Admin() {
     refresh();
   }, []);
 
+  useEffect(() => {
+    if (!mounted) return;
+    refresh();
+  }, [mounted, address, chain?.id]);
+
   const refreshPhases = async () => {
     try {
-      const contract = getReadContract();
+      const contract = await getAdminReadContract();
       const count = await contract.phaseCount();
       const items = await Promise.all(
         Array.from({ length: Number(count) }).map(async (_, index) => {
@@ -531,7 +550,7 @@ export default function Admin() {
                   </button>
                 </div>
 
-                <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                <div className="mt-4 phase-grid">
                   <label className="phase-field">
                     <span className="phase-label">Phase name</span>
                     <input
@@ -568,7 +587,7 @@ export default function Admin() {
                       onChange={(e) => setPhaseForm((prev) => ({ ...prev, startsAt: e.target.value }))}
                     />
                   </label>
-                  <label className="phase-field sm:col-span-2">
+                  <label className="phase-field phase-field-full">
                     <span className="phase-label">End date</span>
                     <input
                       className="phase-input"
@@ -578,20 +597,18 @@ export default function Admin() {
                     />
                   </label>
                 </div>
-                <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div className="phase-actions-row">
                   <button
                     className="rounded-xl bg-white px-4 py-2 text-sm font-semibold text-slate-900"
                     onClick={handleSavePhase}
                   >
                     {editingPhaseId ? "Update Phase" : "Add Phase"}
                   </button>
-                  <span className="text-xs text-slate-400">
-                    These phases are stored on-chain and shown on the mint page.
-                  </span>
+                  <div className="phase-helper">
+                    <span>These phases are stored on-chain and shown on the mint page.</span>
+                    <span>Schedule times use your local timezone.</span>
+                  </div>
                 </div>
-                <p className="mt-3 text-xs text-slate-400">
-                  Schedule times use your local timezone.
-                </p>
 
                 <div className="mt-5 space-y-3 text-sm text-slate-300">
                   {phases.length === 0 ? (
@@ -627,10 +644,12 @@ export default function Admin() {
                               {status}
                             </span>
                           </div>
-                          <div className="flex flex-wrap items-center justify-between text-xs text-slate-400">
-                            <span>{phase.priceEth} {NATIVE_SYMBOL}</span>
-                            <span>Limit {phase.limitPerWallet} per wallet</span>
-                            <span>{phase.allowlistEnabled ? "Allowlist on" : "Public"}</span>
+                          <div className="phase-meta-row">
+                            <span className="phase-meta-item">{phase.priceEth} {NATIVE_SYMBOL}</span>
+                            <span className="phase-meta-item">Limit {phase.limitPerWallet} per wallet</span>
+                            <span className="phase-meta-item">
+                              {phase.allowlistEnabled ? "Allowlist on" : "Public"}
+                            </span>
                           </div>
                           <div className="flex flex-wrap gap-3">
                             <button
