@@ -8,8 +8,10 @@ const {
   MAINNET_RPC_URL,
   SEPOLIA_RPC_URL,
   GOERLI_RPC_URL,
+  POLYGON_RPC_URL,
   PRIVATE_KEY,
   ETHERSCAN_API_KEY,
+  POLYGONSCAN_API_KEY,
 } = process.env;
 
 const accounts = PRIVATE_KEY ? [PRIVATE_KEY] : [];
@@ -30,6 +32,11 @@ const config: HardhatUserConfig = {
       url: MAINNET_RPC_URL || "",
       accounts,
     },
+    polygon: {
+      url: POLYGON_RPC_URL || "",
+      accounts,
+      chainId: 137,
+    },
     sepolia: {
       url: SEPOLIA_RPC_URL || "",
       accounts,
@@ -40,7 +47,7 @@ const config: HardhatUserConfig = {
     },
   },
   etherscan: {
-    apiKey: ETHERSCAN_API_KEY || "",
+    apiKey: ETHERSCAN_API_KEY || POLYGONSCAN_API_KEY || "",
   },
 };
 

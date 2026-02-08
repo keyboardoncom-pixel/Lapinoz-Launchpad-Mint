@@ -6,9 +6,11 @@
     "compile": "hardhat compile",
     "test": "hardhat test",
     "deploy:mainnet": "hardhat run scripts/deploy.ts --network mainnet",
+    "deploy:polygon": "hardhat run scripts/deploy.ts --network polygon",
     "deploy:sepolia": "hardhat run scripts/deploy.ts --network sepolia",
     "deploy:goerli": "hardhat run scripts/deploy.ts --network goerli",
     "verify:mainnet": "hardhat run scripts/verify.ts --network mainnet",
+    "verify:polygon": "hardhat run scripts/verify.ts --network polygon",
     "verify:sepolia": "hardhat run scripts/verify.ts --network sepolia",
     "verify:goerli": "hardhat run scripts/verify.ts --network goerli"
   },

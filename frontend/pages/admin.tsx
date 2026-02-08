@@ -12,7 +12,12 @@ import {
 import WalletMenu from "../components/WalletMenu";
 import { Phase, formatPhaseWindow, fromInputDateTime, getPhaseStatus, toInputDateTime } from "../lib/phases";
 
-const SUPPORTED_CHAIN_IDS = [1, 11155111, 5];
+const NETWORK_NAME = process.env.NEXT_PUBLIC_NETWORK_NAME || "Ethereum";
+const NATIVE_SYMBOL = process.env.NEXT_PUBLIC_NATIVE_SYMBOL || "ETH";
+const FALLBACK_SUPPORTED_CHAIN_IDS = [1, 11155111, 5, 137];
+const SUPPORTED_CHAIN_IDS = TARGET_CHAIN_ID
+  ? [TARGET_CHAIN_ID]
+  : FALLBACK_SUPPORTED_CHAIN_IDS;
 
 type TxStatus = {
   type: "pending" | "success" | "error" | "idle";
@@ -153,11 +158,11 @@ export default function Admin() {
       return false;
     }
     if (!isSupportedChain) {
-      setStatus({ type: "error", message: "Switch to Ethereum network" });
+      setStatus({ type: "error", message: `Switch to ${NETWORK_NAME} network` });
       return false;
     }
     if (!isTargetChain) {
-      setStatus({ type: "error", message: "Switch to Sepolia network" });
+      setStatus({ type: "error", message: `Switch to ${NETWORK_NAME} network` });
       return false;
     }
     if (!isOwner) {
@@ -416,12 +421,12 @@ export default function Admin() {
 
         {!isSupportedChain && isConnected ? (
           <div className="mt-6 rounded-2xl border border-amber-500/40 bg-amber-500/10 p-4 text-sm text-amber-200">
-            Wrong network. Switch to Ethereum Mainnet, Sepolia, or Goerli.
+            Wrong network. Switch to {NETWORK_NAME}.
           </div>
         ) : null}
         {isSupportedChain && !isTargetChain && isConnected ? (
           <div className="mt-6 rounded-2xl border border-amber-500/40 bg-amber-500/10 p-4 text-sm text-amber-200">
-            Wrong network. Switch to Sepolia to manage this contract.
+            Wrong network. Switch to {NETWORK_NAME} to manage this contract.
           </div>
         ) : null}
 
@@ -536,7 +541,7 @@ export default function Admin() {
                     />
                   </label>
                   <label className="phase-field">
-                    <span className="phase-label">Price ETH (default {mintPrice})</span>
+                    <span className="phase-label">Price {NATIVE_SYMBOL} (default {mintPrice})</span>
                     <input
                       className="phase-input"
                       type="number"
@@ -623,7 +628,7 @@ export default function Admin() {
                             </span>
                           </div>
                           <div className="flex flex-wrap items-center justify-between text-xs text-slate-400">
-                            <span>{phase.priceEth} ETH</span>
+                            <span>{phase.priceEth} {NATIVE_SYMBOL}</span>
                             <span>Limit {phase.limitPerWallet} per wallet</span>
                             <span>{phase.allowlistEnabled ? "Allowlist on" : "Public"}</span>
                           </div>
@@ -753,7 +758,7 @@ export default function Admin() {
                 onClick={handleWithdraw}
                 disabled={isBusy}
               >
-                Withdraw ETH
+                Withdraw {NATIVE_SYMBOL}
               </button>
 
               {status.message ? (
@@ -823,7 +828,7 @@ export default function Admin() {
             <section className="glass-card">
               <h3 className="text-lg font-semibold">Admin Access</h3>
               <p className="mt-3 text-sm text-slate-300">
-                Connect with the contract owner wallet on Ethereum to access admin controls.
+                Connect with the contract owner wallet on {NETWORK_NAME} to access admin controls.
               </p>
               {status.message ? (
                 <div

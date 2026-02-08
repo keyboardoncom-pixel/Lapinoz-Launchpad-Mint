@@ -10,7 +10,12 @@ import {
 import { Phase, formatPhaseWindow, getPhaseStatus } from "../lib/phases";
 import WalletMenu from "../components/WalletMenu";
 
-const SUPPORTED_CHAIN_IDS = [1, 11155111, 5];
+const NETWORK_NAME = process.env.NEXT_PUBLIC_NETWORK_NAME || "Ethereum";
+const NATIVE_SYMBOL = process.env.NEXT_PUBLIC_NATIVE_SYMBOL || "ETH";
+const FALLBACK_SUPPORTED_CHAIN_IDS = [1, 11155111, 5, 137];
+const SUPPORTED_CHAIN_IDS = TARGET_CHAIN_ID
+  ? [TARGET_CHAIN_ID]
+  : FALLBACK_SUPPORTED_CHAIN_IDS;
 
 type TxStatus = {
   type: "pending" | "success" | "error" | "idle";
@@ -233,11 +238,11 @@ export default function Home() {
       return;
     }
     if (!isSupportedChain) {
-      setStatus({ type: "error", message: "Switch to Ethereum network" });
+      setStatus({ type: "error", message: `Switch to ${NETWORK_NAME} network` });
       return;
     }
     if (!isTargetChain) {
-      setStatus({ type: "error", message: "Switch to Sepolia network" });
+      setStatus({ type: "error", message: `Switch to ${NETWORK_NAME} network` });
       return;
     }
 
@@ -353,21 +358,15 @@ export default function Home() {
           <div className="launch-left">
             <div className="brand-mark">
               <img src="/icons/logo.png" alt="Chill Guins" className="brand-logo" />
-              <p className="brand-description">
-                Mint directly on Ethereum. Metadata is hosted on IPFS and the collection can be
-                frozen until you are ready for secondary trading.
-              </p>
             </div>
           </div>
           <div className="launch-right">
-            <div className="launch-cta">
-              <WalletMenu onStatus={setStatus} />
-            </div>
+            <WalletMenu onStatus={setStatus} />
           </div>
         </header>
 
         <div className="mint-info-bar">
-          <span className="info-pill">Ethereum</span>
+          <span className="info-pill">{NETWORK_NAME}</span>
           <span className="info-pill">
             {totalSupply} / {maxSupply} Minted
           </span>
@@ -472,7 +471,7 @@ export default function Home() {
                     </span>
                   </div>
                   <p className="phase-price">
-                    {activePhase ? `${activePhase.priceEth} ETH` : "0.0 ETH"}
+                    {activePhase ? `${activePhase.priceEth} ${NATIVE_SYMBOL}` : `0.0 ${NATIVE_SYMBOL}`}
                   </p>
                   <div className="phase-subtext">
                     <span className={`phase-dot ${phaseLive && !paused ? "phase-dot-live" : ""}`} />
@@ -537,7 +536,7 @@ export default function Home() {
               <div className="phase-summary">
                 <div className="summary-item">
                   <span>Total cost</span>
-                  <span className="text-white">{totalCost} ETH</span>
+                  <span className="text-white">{totalCost} {NATIVE_SYMBOL}</span>
                 </div>
                 <div className="summary-item">
                   <span>Freeze collection</span>
@@ -547,12 +546,12 @@ export default function Home() {
 
               {!isSupportedChain && isConnected ? (
                 <div className="rounded-2xl border border-amber-500/40 bg-amber-500/10 p-4 text-sm text-amber-200">
-                  Wrong network. Switch to Ethereum Mainnet, Sepolia, or Goerli.
+                  Wrong network. Switch to {NETWORK_NAME}.
                 </div>
               ) : null}
               {isSupportedChain && !isTargetChain && isConnected ? (
                 <div className="rounded-2xl border border-amber-500/40 bg-amber-500/10 p-4 text-sm text-amber-200">
-                  Wrong network. Switch to Sepolia to use this launchpad.
+                  Wrong network. Switch to {NETWORK_NAME} to use this launchpad.
                 </div>
               ) : null}
 
@@ -638,7 +637,7 @@ export default function Home() {
                           </div>
                           <p className="schedule-meta">{formatPhaseWindow(phase)}</p>
                           <p className="schedule-meta">
-                            {phase.priceEth} ETH | limit {phase.limitPerWallet} per wallet
+                            {phase.priceEth} {NATIVE_SYMBOL} | limit {phase.limitPerWallet} per wallet
                           </p>
                         </div>
                       </div>

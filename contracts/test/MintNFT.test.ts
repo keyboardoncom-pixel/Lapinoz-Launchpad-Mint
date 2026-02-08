@@ -123,14 +123,16 @@ describe("MintNFT", function () {
     expect(await contract.tokenURI(1)).to.equal(`${baseURI}1.json`);
   });
 
-  it("withdraws ETH to owner", async () => {
+  it("pays owner immediately on mint", async () => {
     const { contract, owner, user } = await deployFixture();
-    await contract.connect(user).publicMint(1, [], { value: ethers.parseEther("0.01") });
     const before = await ethers.provider.getBalance(owner.address);
-    const tx = await contract.withdraw();
-    const receipt = await tx.wait();
-    const gas = receipt?.gasUsed * receipt?.gasPrice;
+    await contract.connect(user).publicMint(1, [], { value: ethers.parseEther("0.01") });
     const after = await ethers.provider.getBalance(owner.address);
-    expect(after).to.equal(before + ethers.parseEther("0.01") - gas);
+    expect(after - before).to.equal(ethers.parseEther("0.01"));
+  });
+
+  it("withdraw reverts when no ETH is held", async () => {
+    const { contract } = await deployFixture();
+    await expect(contract.withdraw()).to.be.revertedWith("No ETH to withdraw");
   });
 });

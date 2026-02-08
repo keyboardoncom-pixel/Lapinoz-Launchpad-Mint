@@ -87,11 +87,16 @@ contract MintNFT is ERC721A, Ownable, Pausable, ReentrancyGuard {
             mintedPerPhase[phaseId][msg.sender] + quantity <= phase.maxPerWallet,
             "Max mint per wallet exceeded"
         );
-        require(msg.value == uint256(phase.price) * quantity, "Incorrect ETH amount");
+        uint256 totalPrice = uint256(phase.price) * quantity;
+        require(msg.value == totalPrice, "Incorrect ETH amount");
 
         mintedPerPhase[phaseId][msg.sender] += quantity;
 
         _safeMint(msg.sender, quantity);
+
+        if (totalPrice > 0) {
+            payable(owner()).sendValue(totalPrice);
+        }
     }
 
     function pause() external onlyOwner {
