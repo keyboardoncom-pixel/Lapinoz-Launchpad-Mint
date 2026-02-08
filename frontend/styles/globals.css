@@ -689,6 +689,37 @@ body::before {
   color: #94a3b8;
 }
 
+.preview-thumbs {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.preview-thumb {
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(15, 23, 42, 0.6);
+  padding: 4px;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.preview-thumb img {
+  width: 100%;
+  display: block;
+  border-radius: 8px;
+}
+
+.preview-thumb:hover {
+  border-color: rgba(59, 130, 246, 0.6);
+  transform: translateY(-2px);
+}
+
+.preview-thumb.is-active {
+  border-color: rgba(59, 130, 246, 0.9);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+}
+
 .mint-info-bar {
   margin-top: 18px;
   display: flex;

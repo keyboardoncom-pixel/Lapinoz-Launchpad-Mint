@@ -38,6 +38,18 @@ export default function Home() {
   const [phases, setPhases] = useState<Phase[]>([]);
   const [allowlistEligible, setAllowlistEligible] = useState<boolean | null>(null);
 
+  const previewImages = useMemo(
+    () => [
+      { id: 1, src: "/preview/sample-1.png" },
+      { id: 2, src: "/preview/sample-2.png" },
+      { id: 3, src: "/preview/sample-3.png" },
+      { id: 4, src: "/preview/sample-4.png" },
+      { id: 5, src: "/preview/sample-5.png" },
+    ],
+    []
+  );
+  const [previewId, setPreviewId] = useState(1);
+
   const isSupportedChain = !chain || SUPPORTED_CHAIN_IDS.includes(chain.id);
   const isTargetChain = TARGET_CHAIN_ID ? !!chain && chain.id === TARGET_CHAIN_ID : true;
   const isCorrectChain = isSupportedChain && isTargetChain;
@@ -296,6 +308,8 @@ export default function Home() {
       return "Local time";
     }
   }, []);
+  const activePreview =
+    previewImages.find((preview) => preview.id === previewId) || previewImages[0];
 
   useEffect(() => {
     if (!mounted) return;
@@ -373,9 +387,26 @@ export default function Home() {
           <div className="space-y-6">
             <div className="preview-card">
               <div className="preview-image">
-                <img src="/preview/sample-1.png" alt="Chill Guins preview" />
+                <img
+                  src={activePreview.src}
+                  alt={`Chill Guins preview ${activePreview.id}`}
+                />
               </div>
-              <div className="preview-caption">Preview #1</div>
+              <div className="preview-caption">Preview #{activePreview.id}</div>
+              <div className="preview-thumbs">
+                {previewImages.map((preview) => (
+                  <button
+                    key={preview.id}
+                    type="button"
+                    className={`preview-thumb ${
+                      preview.id === activePreview.id ? "is-active" : ""
+                    }`}
+                    onClick={() => setPreviewId(preview.id)}
+                  >
+                    <img src={preview.src} alt={`Preview ${preview.id}`} />
+                  </button>
+                ))}
+              </div>
             </div>
 
             <div className="glass-card">
