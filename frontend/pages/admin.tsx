@@ -55,6 +55,8 @@ export default function Admin() {
   const [allowlistEnabled, setAllowlistEnabled] = useState(false);
   const [allowlistWallets, setAllowlistWallets] = useState("");
   const [allowlistRoot, setAllowlistRoot] = useState("");
+  const [allowlistSaved, setAllowlistSaved] = useState<string[]>([]);
+  const [allowlistDirty, setAllowlistDirty] = useState(false);
 
   const isSupportedChain = !chain || SUPPORTED_CHAIN_IDS.includes(chain.id);
   const isTargetChain = TARGET_CHAIN_ID ? !!chain && chain.id === TARGET_CHAIN_ID : true;
@@ -167,20 +169,7 @@ export default function Admin() {
     refreshPhases();
   }, [mounted]);
 
-  useEffect(() => {
-    if (!phases.length) return;
-    if (allowlistPhaseId === null) {
-      setAllowlistPhaseId(phases[0].id);
-      return;
-    }
-    const selected = phases.find((phase) => phase.id === allowlistPhaseId);
-    if (!selected) {
-      setAllowlistPhaseId(phases[0].id);
-      return;
-    }
-    setAllowlistEnabled(Boolean(selected.allowlistEnabled));
-    setAllowlistRoot(selected.allowlistRoot || "");
-  }, [allowlistPhaseId, phases]);
+  // (moved below helper definitions)
 
 
   const isOwner = useMemo(() => {
@@ -418,6 +407,67 @@ export default function Admin() {
     return Array.from(unique);
   };
 
+  const getAllowlistStorageKey = (phaseId: number | null) => {
+    if (phaseId === null) return "";
+    const chainId = chain?.id ?? "unknown";
+    return `allowlist:${CONTRACT_ADDRESS}:${chainId}:${phaseId}`;
+  };
+
+  const loadAllowlistFromStorage = (phaseId: number | null) => {
+    if (typeof window === "undefined") return [];
+    const key = getAllowlistStorageKey(phaseId);
+    if (!key) return [];
+    try {
+      const raw = window.localStorage.getItem(key);
+      if (!raw) return [];
+      const parsed = JSON.parse(raw);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
+  };
+
+  const saveAllowlistToStorage = (phaseId: number | null, wallets: string[]) => {
+    if (typeof window === "undefined") return;
+    const key = getAllowlistStorageKey(phaseId);
+    if (!key) return;
+    window.localStorage.setItem(key, JSON.stringify(wallets));
+  };
+
+  const updateAllowlistCache = (wallets: string[], allowed: boolean) => {
+    if (allowlistPhaseId === null) return;
+    const current = new Set(loadAllowlistFromStorage(allowlistPhaseId));
+    if (allowed) {
+      wallets.forEach((wallet) => current.add(wallet));
+    } else {
+      wallets.forEach((wallet) => current.delete(wallet));
+    }
+    const next = Array.from(current);
+    saveAllowlistToStorage(allowlistPhaseId, next);
+    setAllowlistSaved(next);
+    setAllowlistWallets(next.join("\n"));
+    setAllowlistDirty(false);
+  };
+
+  useEffect(() => {
+    if (!phases.length) return;
+    if (allowlistPhaseId === null) {
+      setAllowlistPhaseId(phases[0].id);
+      return;
+    }
+    const selected = phases.find((phase) => phase.id === allowlistPhaseId);
+    if (!selected) {
+      setAllowlistPhaseId(phases[0].id);
+      return;
+    }
+    setAllowlistEnabled(Boolean(selected.allowlistEnabled));
+    setAllowlistRoot(selected.allowlistRoot || "");
+    const stored = loadAllowlistFromStorage(allowlistPhaseId);
+    setAllowlistSaved(stored);
+    setAllowlistDirty(false);
+    setAllowlistWallets(stored.join("\n"));
+  }, [allowlistPhaseId, phases]);
+
   const handleToggleAllowlist = async () => {
     if (!ensureReady()) return;
     if (allowlistPhaseId === null) {
@@ -453,6 +503,7 @@ export default function Admin() {
       const tx = await contract.setPhaseAllowlist(allowlistPhaseId, wallets, allowed);
       await tx.wait();
     });
+    updateAllowlistCache(wallets, allowed);
   };
 
   const handleSetAllowlistRoot = async () => {
@@ -841,7 +892,10 @@ export default function Admin() {
                     rows={4}
                     placeholder="0xabc...\n0xdef..."
                     value={allowlistWallets}
-                    onChange={(event) => setAllowlistWallets(event.target.value)}
+                    onChange={(event) => {
+                      setAllowlistWallets(event.target.value);
+                      setAllowlistDirty(true);
+                    }}
                   />
                 </div>
 
@@ -860,7 +914,10 @@ export default function Admin() {
                   </button>
                   <button
                     className="rounded-xl border border-slate-700 px-4 py-2 text-sm"
-                    onClick={() => setAllowlistWallets("")}
+                    onClick={() => {
+                      setAllowlistWallets("");
+                      setAllowlistDirty(false);
+                    }}
                   >
                     Clear
                   </button>
@@ -868,6 +925,31 @@ export default function Admin() {
                 <p className="mt-3 text-xs text-slate-400">
                   Allowlist data is stored on-chain. Add wallets in small batches to avoid gas limits.
                 </p>
+                <div className="mt-4 rounded-2xl border border-slate-800/80 bg-slate-950/60 p-4">
+                  <div className="flex items-center justify-between text-xs text-slate-400">
+                    <span>Saved wallets (local)</span>
+                    <span>{allowlistSaved.length} wallet{allowlistSaved.length === 1 ? "" : "s"}</span>
+                  </div>
+                  {allowlistSaved.length === 0 ? (
+                    <p className="mt-2 text-xs text-slate-500">No saved wallets yet.</p>
+                  ) : (
+                    <div className="mt-3 max-h-40 space-y-2 overflow-y-auto text-xs text-slate-300">
+                      {allowlistSaved.map((wallet) => (
+                        <div
+                          key={wallet}
+                          className="flex items-center justify-between rounded-lg border border-slate-800/80 bg-slate-900/60 px-3 py-2 font-mono"
+                        >
+                          <span>{wallet}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  {allowlistDirty ? (
+                    <p className="mt-2 text-xs text-amber-300">
+                      You have unsaved edits in the text area above.
+                    </p>
+                  ) : null}
+                </div>
               </div>
 
               <button
