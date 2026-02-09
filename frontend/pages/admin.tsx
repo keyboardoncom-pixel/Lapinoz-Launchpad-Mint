@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { ethers } from "ethers";
-import { useAccount, useNetwork } from "wagmi";
+import { useActiveAccount, useActiveWalletChain, useActiveWalletConnectionStatus } from "thirdweb/react";
 import {
   CONTRACT_ADDRESS,
   formatAddress,
@@ -27,8 +27,11 @@ type TxStatus = {
 
 export default function Admin() {
   const [mounted, setMounted] = useState(false);
-  const { address, isConnected, connector } = useAccount();
-  const { chain } = useNetwork();
+  const account = useActiveAccount();
+  const chain = useActiveWalletChain();
+  const connectionStatus = useActiveWalletConnectionStatus();
+  const address = account?.address;
+  const isConnected = connectionStatus === "connected" && !!address;
 
   const [owner, setOwner] = useState<string>("");
   const [baseURI, setBaseURI] = useState<string>("");
@@ -57,17 +60,17 @@ export default function Admin() {
   const [allowlistRoot, setAllowlistRoot] = useState("");
   const [allowlistSaved, setAllowlistSaved] = useState<string[]>([]);
   const [allowlistDirty, setAllowlistDirty] = useState(false);
+  const [allowlistStatus, setAllowlistStatus] = useState<Record<string, boolean>>({});
+  const [activePhaseInfo, setActivePhaseInfo] = useState<{ id: number; name: string } | null>(null);
 
   const isSupportedChain = !chain || SUPPORTED_CHAIN_IDS.includes(chain.id);
   const isTargetChain = TARGET_CHAIN_ID ? !!chain && chain.id === TARGET_CHAIN_ID : true;
   const isCorrectChain = isSupportedChain && isTargetChain;
 
   const getAdminReadContract = async () => {
-    if (connector) {
+    if (account) {
       try {
-        const provider = await connector.getProvider();
-        const ethersProvider = new ethers.providers.Web3Provider(provider);
-        return new ethers.Contract(CONTRACT_ADDRESS, MINTNFT_ABI, ethersProvider);
+        return await getWriteContract(account, chain);
       } catch {
         // fall back to RPC provider below
       }
@@ -135,6 +138,12 @@ export default function Admin() {
     try {
       const contract = await getAdminReadContract();
       const count = await contract.phaseCount();
+      const active = await contract.getActivePhase();
+      if (active?.[0]) {
+        setActivePhaseInfo({ id: Number(active[1]), name: active[2] });
+      } else {
+        setActivePhaseInfo(null);
+      }
       const items = await Promise.all(
         Array.from({ length: Number(count) }).map(async (_, index) => {
           const phase = await contract.phases(index);
@@ -221,7 +230,7 @@ export default function Admin() {
       return;
     }
     await withTx(async () => {
-      const contract = await getWriteContract(connector);
+      const contract = await getWriteContract(account, chain);
       const tx = await contract.setBaseURI(baseURI.trim());
       await tx.wait();
     });
@@ -230,7 +239,7 @@ export default function Admin() {
   const handlePauseToggle = async () => {
     if (!ensureReady()) return;
     await withTx(async () => {
-      const contract = await getWriteContract(connector);
+      const contract = await getWriteContract(account, chain);
       const tx = paused ? await contract.unpause() : await contract.pause();
       await tx.wait();
     });
@@ -239,7 +248,7 @@ export default function Admin() {
   const handleWithdraw = async () => {
     if (!ensureReady()) return;
     await withTx(async () => {
-      const contract = await getWriteContract(connector);
+      const contract = await getWriteContract(account, chain);
       const tx = await contract.withdraw();
       await tx.wait();
     });
@@ -248,7 +257,7 @@ export default function Admin() {
   const handleToggleTransfers = async () => {
     if (!ensureReady()) return;
     await withTx(async () => {
-      const contract = await getWriteContract(connector);
+      const contract = await getWriteContract(account, chain);
       const tx = await contract.setTransfersLocked(!transfersLocked);
       await tx.wait();
     });
@@ -257,7 +266,7 @@ export default function Admin() {
   const handleToggleReveal = async () => {
     if (!ensureReady()) return;
     await withTx(async () => {
-      const contract = await getWriteContract(connector);
+      const contract = await getWriteContract(account, chain);
       const tx = await contract.setRevealed(!revealed);
       await tx.wait();
     });
@@ -288,7 +297,7 @@ export default function Admin() {
     }
 
     await withTx(async () => {
-      const contract = await getWriteContract(connector);
+      const contract = await getWriteContract(account, chain);
       if (recipientChanged) {
         const tx = await contract.setFeeRecipient(feeRecipientInput);
         await tx.wait();
@@ -341,7 +350,7 @@ export default function Admin() {
       return;
     }
     await withTx(async () => {
-      const contract = await getWriteContract(connector);
+      const contract = await getWriteContract(account, chain);
       const priceWei = ethers.utils.parseEther(priceInput);
       if (editingPhaseId !== null) {
         const tx = await contract.updatePhase(
@@ -382,7 +391,7 @@ export default function Admin() {
     if (!ensureReady()) return;
     void (async () => {
       await withTx(async () => {
-        const contract = await getWriteContract(connector);
+        const contract = await getWriteContract(account, chain);
         const tx = await contract.removePhase(phaseId);
         await tx.wait();
       });
@@ -434,6 +443,26 @@ export default function Admin() {
     window.localStorage.setItem(key, JSON.stringify(wallets));
   };
 
+  const refreshAllowlistStatus = async (wallets: string[]) => {
+    if (!wallets.length || allowlistPhaseId === null) {
+      setAllowlistStatus({});
+      return;
+    }
+    try {
+      const contract = await getAdminReadContract();
+      const statuses = await Promise.all(
+        wallets.map((wallet) => contract.phaseAllowlist(allowlistPhaseId, wallet))
+      );
+      const next: Record<string, boolean> = {};
+      wallets.forEach((wallet, index) => {
+        next[wallet] = Boolean(statuses[index]);
+      });
+      setAllowlistStatus(next);
+    } catch {
+      // ignore status refresh failures
+    }
+  };
+
   const updateAllowlistCache = (wallets: string[], allowed: boolean) => {
     if (allowlistPhaseId === null) return;
     const current = new Set(loadAllowlistFromStorage(allowlistPhaseId));
@@ -447,17 +476,40 @@ export default function Admin() {
     setAllowlistSaved(next);
     setAllowlistWallets(next.join("\n"));
     setAllowlistDirty(false);
+    void refreshAllowlistStatus(next);
+  };
+
+  const handleRemoveSavedWallet = async (wallet: string) => {
+    if (!ensureReady()) return;
+    if (allowlistPhaseId === null) {
+      setStatus({ type: "error", message: "Select a phase first" });
+      return;
+    }
+    await withTx(async () => {
+      const contract = await getWriteContract(account, chain);
+      const tx = await contract.setPhaseAllowlist(allowlistPhaseId, [wallet], false);
+      await tx.wait();
+    });
+    updateAllowlistCache([wallet], false);
   };
 
   useEffect(() => {
     if (!phases.length) return;
     if (allowlistPhaseId === null) {
-      setAllowlistPhaseId(phases[0].id);
+      if (activePhaseInfo) {
+        setAllowlistPhaseId(activePhaseInfo.id);
+      } else {
+        setAllowlistPhaseId(phases[0].id);
+      }
       return;
     }
     const selected = phases.find((phase) => phase.id === allowlistPhaseId);
     if (!selected) {
-      setAllowlistPhaseId(phases[0].id);
+      if (activePhaseInfo) {
+        setAllowlistPhaseId(activePhaseInfo.id);
+      } else {
+        setAllowlistPhaseId(phases[0].id);
+      }
       return;
     }
     setAllowlistEnabled(Boolean(selected.allowlistEnabled));
@@ -466,7 +518,8 @@ export default function Admin() {
     setAllowlistSaved(stored);
     setAllowlistDirty(false);
     setAllowlistWallets(stored.join("\n"));
-  }, [allowlistPhaseId, phases]);
+    void refreshAllowlistStatus(stored);
+  }, [allowlistPhaseId, phases, activePhaseInfo]);
 
   const handleToggleAllowlist = async () => {
     if (!ensureReady()) return;
@@ -475,7 +528,7 @@ export default function Admin() {
       return;
     }
     await withTx(async () => {
-      const contract = await getWriteContract(connector);
+      const contract = await getWriteContract(account, chain);
       const tx = await contract.setPhaseAllowlistEnabled(allowlistPhaseId, !allowlistEnabled);
       await tx.wait();
     });
@@ -499,7 +552,7 @@ export default function Admin() {
       return;
     }
     await withTx(async () => {
-      const contract = await getWriteContract(connector);
+      const contract = await getWriteContract(account, chain);
       const tx = await contract.setPhaseAllowlist(allowlistPhaseId, wallets, allowed);
       await tx.wait();
     });
@@ -519,7 +572,7 @@ export default function Admin() {
       return;
     }
     await withTx(async () => {
-      const contract = await getWriteContract(connector);
+      const contract = await getWriteContract(account, chain);
       const tx = await contract.setPhaseMerkleRoot(allowlistPhaseId, root);
       await tx.wait();
     });
@@ -845,6 +898,21 @@ export default function Admin() {
                     ))}
                   </select>
                 </div>
+                {activePhaseInfo ? (
+                  <div className="mt-3 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-800/80 bg-slate-950/70 px-4 py-2 text-xs text-slate-300">
+                    <span>
+                      Active mint phase: <span className="text-white">{activePhaseInfo.name}</span> (ID {activePhaseInfo.id})
+                    </span>
+                    {allowlistPhaseId !== activePhaseInfo.id ? (
+                      <button
+                        className="rounded-full border border-slate-700 px-3 py-1 text-xs text-slate-200"
+                        onClick={() => setAllowlistPhaseId(activePhaseInfo.id)}
+                      >
+                        Use active phase
+                      </button>
+                    ) : null}
+                  </div>
+                ) : null}
 
                 <div className="mt-4 flex items-center justify-between rounded-xl border border-slate-800/80 bg-slate-950/70 px-4 py-3">
                   <div>
@@ -937,9 +1005,20 @@ export default function Admin() {
                       {allowlistSaved.map((wallet) => (
                         <div
                           key={wallet}
-                          className="flex items-center justify-between rounded-lg border border-slate-800/80 bg-slate-900/60 px-3 py-2 font-mono"
+                          className="allowlist-row"
                         >
-                          <span>{wallet}</span>
+                          <div className="allowlist-row-left">
+                            <span className="allowlist-status">
+                              {allowlistStatus[wallet] ? "On" : "Off"}
+                            </span>
+                            <span className="allowlist-wallet">{wallet}</span>
+                          </div>
+                          <button
+                            className="allowlist-remove"
+                            onClick={() => handleRemoveSavedWallet(wallet)}
+                          >
+                            Remove
+                          </button>
                         </div>
                       ))}
                     </div>

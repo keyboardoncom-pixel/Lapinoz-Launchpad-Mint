@@ -1,4 +1,6 @@
 import { ethers } from "ethers";
+import { ethers5Adapter } from "thirdweb/adapters/ethers5";
+import { THIRDWEB_CLIENT, TARGET_CHAIN } from "./thirdweb";
 
 export const CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS || "";
 export const RPC_URL = process.env.NEXT_PUBLIC_RPC_URL || "";
@@ -303,16 +305,18 @@ export function getReadContract() {
   return new ethers.Contract(CONTRACT_ADDRESS, MINTNFT_ABI, provider);
 }
 
-export async function getWriteContract(connector: any) {
+export async function getWriteContract(account?: any, chain?: any) {
   if (!CONTRACT_ADDRESS) {
     throw new Error("Missing NEXT_PUBLIC_CONTRACT_ADDRESS");
   }
-  if (!connector) {
-    throw new Error("Wallet connector not found");
+  if (!account) {
+    throw new Error("Wallet not connected");
   }
-  const provider = await connector.getProvider();
-  const ethersProvider = new ethers.providers.Web3Provider(provider);
-  const signer = ethersProvider.getSigner();
+  const signer = await ethers5Adapter.signer.toEthers({
+    client: THIRDWEB_CLIENT,
+    account,
+    chain: chain ?? TARGET_CHAIN,
+  });
   return new ethers.Contract(CONTRACT_ADDRESS, MINTNFT_ABI, signer);
 }
 

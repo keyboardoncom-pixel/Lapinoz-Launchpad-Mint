@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { useAccount, useNetwork } from "wagmi";
+import { useActiveAccount, useActiveWalletChain, useActiveWalletConnectionStatus } from "thirdweb/react";
 import { ethers } from "ethers";
 import {
   formatAddress,
@@ -24,8 +24,11 @@ type TxStatus = {
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
-  const { address, isConnected, connector } = useAccount();
-  const { chain } = useNetwork();
+  const account = useActiveAccount();
+  const chain = useActiveWalletChain();
+  const connectionStatus = useActiveWalletConnectionStatus();
+  const address = account?.address;
+  const isConnected = connectionStatus === "connected" && !!address;
 
   const [mintPrice, setMintPrice] = useState("0");
   const [totalSupply, setTotalSupply] = useState("0");
@@ -251,7 +254,7 @@ export default function Home() {
 
     try {
       setStatus({ type: "pending", message: "Waiting for wallet confirmation" });
-      const contract = await getWriteContract(connector);
+      const contract = await getWriteContract(account, chain);
       const [active, phaseId, , price] = await contract.getActivePhase();
       const fee = await contract.launchpadFee();
       if (!active) {
