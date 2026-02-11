@@ -26,6 +26,55 @@ type TxStatus = {
   message: string;
 };
 
+const normalizeMintErrorMessage = (error: any) => {
+  const rawParts = [
+    error?.reason,
+    error?.shortMessage,
+    error?.message,
+    error?.data?.message,
+    error?.error?.message,
+    error?.info?.error?.message,
+  ]
+    .filter(Boolean)
+    .map((value) => String(value));
+
+  const raw = rawParts.join(" | ");
+  const lower = raw.toLowerCase();
+
+  if (
+    lower.includes("insufficient funds") ||
+    lower.includes("gas * price + value") ||
+    lower.includes("overshot")
+  ) {
+    return `Saldo ${NATIVE_SYMBOL} tidak cukup untuk total mint + gas. Kurangi quantity atau isi saldo dulu.`;
+  }
+
+  if (error?.code === 4001 || lower.includes("user rejected") || lower.includes("rejected the request")) {
+    return "Transaksi dibatalkan di wallet.";
+  }
+
+  if (lower.includes("paused")) {
+    return "Mint sedang di-pause oleh admin.";
+  }
+
+  if (lower.includes("allowlist")) {
+    return "Wallet tidak masuk allowlist untuk phase ini.";
+  }
+
+  if (lower.includes("wrong network") || lower.includes("chain")) {
+    return `Pindah jaringan ke ${NETWORK_NAME}.`;
+  }
+
+  if (error?.reason && String(error.reason).length <= 180) {
+    return String(error.reason);
+  }
+  if (error?.shortMessage && String(error.shortMessage).length <= 180) {
+    return String(error.shortMessage);
+  }
+
+  return "Mint gagal. Coba lagi atau cek detail transaksi di wallet.";
+};
+
 export default function Home() {
   const [mounted, setMounted] = useState(false);
   const account = useActiveAccount();
@@ -314,7 +363,7 @@ export default function Home() {
     } catch (error: any) {
       setStatus({
         type: "error",
-        message: error?.reason || error?.message || "Mint failed",
+        message: normalizeMintErrorMessage(error),
       });
     }
   };
