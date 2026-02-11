@@ -456,6 +456,10 @@ export default function Home() {
           <span className={`info-pill ${phaseLive && !paused ? "info-pill-live" : "info-pill-muted"}`}>
             {paused ? "Paused" : phaseLive ? "Minting Now" : "Mint Closed"}
           </span>
+          <span className={`info-pill info-pill-freeze ${transfersLocked ? "is-on" : "is-off"}`}>
+            <img className="info-pill-icon" src="/icons/snowflake.png" alt="" />
+            Freeze Collection {transfersLocked ? "On" : "Off"}
+          </span>
         </div>
 
         <div className="mt-10 grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
