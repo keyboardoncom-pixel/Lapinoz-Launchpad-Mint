@@ -96,6 +96,7 @@ export default function Home() {
   const [quantity, setQuantity] = useState(1);
   const [status, setStatus] = useState<TxStatus>({ type: "idle", message: "" });
   const [minters, setMinters] = useState<{ address: string; count: number }[]>([]);
+  const [mintedWalletCount, setMintedWalletCount] = useState(0);
   const [mintersLoading, setMintersLoading] = useState(false);
   const [mintersError, setMintersError] = useState("");
   const [mintersNotice, setMintersNotice] = useState("");
@@ -145,14 +146,13 @@ export default function Home() {
       setMintersError("");
       setMintersNotice("");
       if (!ENABLE_MINTERS) {
-        setMinters([]);
         setMintersNotice("Minter list is disabled to reduce RPC load.");
-        return;
       }
       const contract = getReadContract();
       const supply = await withReadRetry<any>(() => contract.totalSupply());
       if (supply.toString() === "0") {
         setMinters([]);
+        setMintedWalletCount(0);
         return;
       }
       try {
@@ -190,13 +190,20 @@ export default function Home() {
           count,
         }));
         list.sort((a, b) => b.count - a.count);
-        setMinters(list);
+        setMintedWalletCount(list.length);
+        if (ENABLE_MINTERS) {
+          setMinters(list);
+        } else {
+          setMinters([]);
+        }
         return;
       } catch (logError: any) {
         setMinters([]);
+        setMintedWalletCount(0);
         setMintersError(logError?.message || "Failed to load mint events");
       }
     } catch (error: any) {
+      setMintedWalletCount(0);
       setMintersError(error?.message || "Failed to load minters");
     } finally {
       setMintersLoading(false);
@@ -239,11 +246,7 @@ export default function Home() {
 
   useEffect(() => {
     refresh();
-    if (ENABLE_MINTERS) {
-      refreshMinters();
-    } else {
-      setMintersNotice("Minter list is disabled to reduce RPC load.");
-    }
+    refreshMinters();
     refreshPhases();
   }, []);
 
@@ -281,6 +284,7 @@ export default function Home() {
     const handleFocus = () => {
       void refresh();
       void refreshPhases();
+      void refreshMinters();
     };
 
     scheduleStats();
@@ -355,11 +359,7 @@ export default function Home() {
       setStatus({ type: "pending", message: "Transaction submitted" });
       await tx.wait();
       setStatus({ type: "success", message: "Mint successful" });
-      if (ENABLE_MINTERS) {
-        await Promise.all([refresh(), refreshMinters()]);
-      } else {
-        await refresh();
-      }
+      await Promise.all([refresh(), refreshMinters()]);
     } catch (error: any) {
       setStatus({
         type: "error",
@@ -484,7 +484,7 @@ export default function Home() {
               <div className="flex items-center justify-between">
                 <h3 className="text-lg font-semibold">Minted Wallets</h3>
                 <span className="text-xs text-slate-400">
-                  {minters.length} wallet{minters.length === 1 ? "" : "s"}
+                  {mintedWalletCount} wallet{mintedWalletCount === 1 ? "" : "s"}
                 </span>
               </div>
             </div>
