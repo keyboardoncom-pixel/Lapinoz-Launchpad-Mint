@@ -463,13 +463,15 @@ export default function Admin() {
       .map((item) => item.trim())
       .filter(Boolean);
     const unique = new Set<string>();
+    const invalid: string[] = [];
     for (const value of raw) {
       if (!ethers.utils.isAddress(value)) {
-        throw new Error(`Invalid address: ${value}`);
+        invalid.push(value);
+        continue;
       }
       unique.add(ethers.utils.getAddress(value));
     }
-    return Array.from(unique);
+    return { valid: Array.from(unique), invalid };
   };
 
   const getAllowlistStorageKey = (phaseId: number | null) => {
@@ -596,15 +598,15 @@ export default function Admin() {
       setStatus({ type: "error", message: "Select a phase first" });
       return;
     }
-    let wallets: string[] = [];
-    try {
-      wallets = parseWallets(allowlistWallets);
-    } catch (error: any) {
-      setStatus({ type: "error", message: error?.message || "Invalid wallet list" });
-      return;
-    }
+    const parsed = parseWallets(allowlistWallets);
+    const wallets = parsed.valid;
     if (wallets.length === 0) {
-      setStatus({ type: "error", message: "Add at least one wallet address" });
+      setStatus({
+        type: "error",
+        message: parsed.invalid.length
+          ? "No valid wallet address found. Invalid entries were ignored."
+          : "Add at least one wallet address",
+      });
       return;
     }
     await withTx(async () => {
@@ -613,6 +615,14 @@ export default function Admin() {
       await tx.wait();
     });
     updateAllowlistCache(wallets, allowed);
+    if (parsed.invalid.length) {
+      const sample = parsed.invalid.slice(0, 3).join(", ");
+      const suffix = parsed.invalid.length > 3 ? ` (+${parsed.invalid.length - 3} more)` : "";
+      setStatus({
+        type: "success",
+        message: `Transaction confirmed. Skipped ${parsed.invalid.length} invalid address${parsed.invalid.length > 1 ? "es" : ""}: ${sample}${suffix}`,
+      });
+    }
   };
 
   const handleSetAllowlistRoot = async () => {
