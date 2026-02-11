@@ -1,17 +1,21 @@
 import { useEffect, useMemo, useState } from "react";
 import { useActiveAccount, useActiveWalletChain, useActiveWalletConnectionStatus } from "thirdweb/react";
 import { ethers } from "ethers";
-import {
-  formatAddress,
-  getReadContract,
+import {  getReadContract,
   getWriteContract,
   TARGET_CHAIN_ID,
+  withReadRetry,
 } from "../lib/contract";
 import { Phase, formatPhaseWindow, getPhaseStatus } from "../lib/phases";
 import WalletMenu from "../components/WalletMenu";
 
 const NETWORK_NAME = process.env.NEXT_PUBLIC_NETWORK_NAME || "Ethereum";
 const NATIVE_SYMBOL = process.env.NEXT_PUBLIC_NATIVE_SYMBOL || "ETH";
+const ENABLE_MINTERS = process.env.NEXT_PUBLIC_ENABLE_MINTERS === "true";
+const MINTERS_LOOKBACK_BLOCKS = Number(process.env.NEXT_PUBLIC_MINTERS_LOOKBACK_BLOCKS || 50000);
+const STATS_REFRESH_MS = Math.max(15000, Number(process.env.NEXT_PUBLIC_STATS_REFRESH_MS || 45000));
+const PHASES_REFRESH_MS = Math.max(20000, Number(process.env.NEXT_PUBLIC_PHASES_REFRESH_MS || 120000));
+const REFRESH_JITTER_MS = Math.max(0, Number(process.env.NEXT_PUBLIC_REFRESH_JITTER_MS || 5000));
 const FALLBACK_SUPPORTED_CHAIN_IDS = [1, 11155111, 5, 137];
 const SUPPORTED_CHAIN_IDS = TARGET_CHAIN_ID
   ? [TARGET_CHAIN_ID]
@@ -35,6 +39,9 @@ export default function Home() {
   const [maxSupply, setMaxSupply] = useState("0");
   const [maxMintPerWallet, setMaxMintPerWallet] = useState("0");
   const [launchpadFee, setLaunchpadFee] = useState("0");
+  const [revealed, setRevealed] = useState(false);
+  const [notRevealedURI, setNotRevealedURI] = useState("");
+  const [hiddenMediaLoaded, setHiddenMediaLoaded] = useState(false);
   const [paused, setPaused] = useState(false);
   const [transfersLocked, setTransfersLocked] = useState(false);
   const [quantity, setQuantity] = useState(1);
@@ -47,18 +54,6 @@ export default function Home() {
   const [phases, setPhases] = useState<Phase[]>([]);
   const [allowlistEligible, setAllowlistEligible] = useState<boolean | null>(null);
 
-  const previewImages = useMemo(
-    () => [
-      { id: 1, src: "/preview/sample-1.png" },
-      { id: 2, src: "/preview/sample-2.png" },
-      { id: 3, src: "/preview/sample-3.png" },
-      { id: 4, src: "/preview/sample-4.png" },
-      { id: 5, src: "/preview/sample-5.png" },
-    ],
-    []
-  );
-  const [previewId, setPreviewId] = useState(1);
-
   const isSupportedChain = !chain || SUPPORTED_CHAIN_IDS.includes(chain.id);
   const isTargetChain = TARGET_CHAIN_ID ? !!chain && chain.id === TARGET_CHAIN_ID : true;
   const isCorrectChain = isSupportedChain && isTargetChain;
@@ -66,16 +61,20 @@ export default function Home() {
   const refresh = async () => {
     try {
       const contract = getReadContract();
-      const [price, total, max, maxPerWallet, isPaused, locked, fee] =
-        await Promise.all([
-          contract.mintPrice(),
-          contract.totalSupply(),
-          contract.maxSupply(),
-          contract.maxMintPerWallet(),
-          contract.paused(),
-          contract.transfersLocked(),
-          contract.launchpadFee(),
-        ]);
+      const [price, total, max, maxPerWallet, isPaused, locked, fee, isRevealed, hiddenUri] =
+        await withReadRetry(() =>
+          Promise.all([
+            contract.mintPrice(),
+            contract.totalSupply(),
+            contract.maxSupply(),
+            contract.maxMintPerWallet(),
+            contract.paused(),
+            contract.transfersLocked(),
+            contract.launchpadFee(),
+            contract.revealed(),
+            contract.notRevealedURI(),
+          ])
+        );
 
       setMintPrice(ethers.utils.formatEther(price));
       setTotalSupply(total.toString());
@@ -84,6 +83,8 @@ export default function Home() {
       setPaused(isPaused);
       setTransfersLocked(locked);
       setLaunchpadFee(ethers.utils.formatEther(fee));
+      setRevealed(Boolean(isRevealed));
+      setNotRevealedURI(hiddenUri || "");
     } catch (error: any) {
       setStatus({ type: "error", message: error?.message || "Failed to load" });
     }
@@ -94,8 +95,13 @@ export default function Home() {
       setMintersLoading(true);
       setMintersError("");
       setMintersNotice("");
+      if (!ENABLE_MINTERS) {
+        setMinters([]);
+        setMintersNotice("Minter list is disabled to reduce RPC load.");
+        return;
+      }
       const contract = getReadContract();
-      const supply = await contract.totalSupply();
+      const supply = await withReadRetry<any>(() => contract.totalSupply());
       if (supply.toString() === "0") {
         setMinters([]);
         return;
@@ -103,17 +109,25 @@ export default function Home() {
       try {
         const filter = contract.filters.Transfer(ethers.constants.AddressZero, null);
         const provider = contract.provider;
-        const latestBlock = await provider.getBlockNumber();
+        const latestBlock = await withReadRetry<number>(() => provider.getBlockNumber());
         const envDeployBlock = Number(process.env.NEXT_PUBLIC_DEPLOY_BLOCK || "");
-        const fallbackSpan = 100000;
+        const lookback = Number.isFinite(MINTERS_LOOKBACK_BLOCKS) && MINTERS_LOOKBACK_BLOCKS > 0
+          ? MINTERS_LOOKBACK_BLOCKS
+          : 50000;
+        const minBlock = Math.max(latestBlock - lookback, 0);
         const fromBlock = Number.isFinite(envDeployBlock) && envDeployBlock > 0
-          ? envDeployBlock
-          : Math.max(latestBlock - fallbackSpan, 0);
-        const step = 1000;
+          ? Math.max(envDeployBlock, minBlock)
+          : minBlock;
+        if (!(Number.isFinite(envDeployBlock) && envDeployBlock > 0)) {
+          setMintersNotice(
+            "Using recent blocks only. Set NEXT_PUBLIC_DEPLOY_BLOCK for full mint history."
+          );
+        }
+        const step = 2000;
         let events: any[] = [];
         for (let start = fromBlock; start <= latestBlock; start += step) {
           const end = Math.min(start + step - 1, latestBlock);
-          const chunk = await contract.queryFilter(filter, start, end);
+          const chunk = await withReadRetry(() => contract.queryFilter(filter, start, end));
           events = events.concat(chunk);
         }
         const counts = new Map<string, number>();
@@ -130,38 +144,8 @@ export default function Home() {
         setMinters(list);
         return;
       } catch (logError: any) {
-        // fall back to ownerOf scan if log query is rate-limited
-        const total = Number(supply.toString());
-        const counts = new Map<string, number>();
-        const batchSize = 20;
-        for (let start = 1; start <= total; start += batchSize) {
-          const ids = Array.from(
-            { length: Math.min(batchSize, total - start + 1) },
-            (_, index) => start + index
-          );
-          const owners = await Promise.all(
-            ids.map(async (tokenId) => {
-              try {
-                return await contract.ownerOf(tokenId);
-              } catch {
-                return null;
-              }
-            })
-          );
-          for (const owner of owners) {
-            if (!owner) continue;
-            counts.set(owner, (counts.get(owner) || 0) + 1);
-          }
-        }
-        const list = Array.from(counts.entries()).map(([address, count]) => ({
-          address,
-          count,
-        }));
-        list.sort((a, b) => b.count - a.count);
-        setMinters(list);
-        setMintersNotice(
-          "RPC log limit hit. Showing current holders instead of mint events."
-        );
+        setMinters([]);
+        setMintersError(logError?.message || "Failed to load mint events");
       }
     } catch (error: any) {
       setMintersError(error?.message || "Failed to load minters");
@@ -173,14 +157,15 @@ export default function Home() {
   const refreshPhases = async () => {
     try {
       const contract = getReadContract();
-      const count = await contract.phaseCount();
+      const count = await withReadRetry<any>(() => contract.phaseCount());
       const items = await Promise.all(
         Array.from({ length: Number(count) }).map(async (_, index) => {
-          const phase = await contract.phases(index);
+          const phase = await withReadRetry<any>(() => contract.phases(index));
           const exists = phase.exists ?? phase[5];
           if (!exists) return null;
-          const allowlist = await contract.phaseAllowlistEnabled(index);
-          const root = await contract.phaseMerkleRoot(index);
+          const [allowlist, root] = await withReadRetry(() =>
+            Promise.all([contract.phaseAllowlistEnabled(index), contract.phaseMerkleRoot(index)])
+          );
           return {
             id: index,
             name: phase.name,
@@ -205,23 +190,62 @@ export default function Home() {
 
   useEffect(() => {
     refresh();
-    refreshMinters();
+    if (ENABLE_MINTERS) {
+      refreshMinters();
+    } else {
+      setMintersNotice("Minter list is disabled to reduce RPC load.");
+    }
     refreshPhases();
   }, []);
 
   useEffect(() => {
     if (!mounted) return;
-    const handleFocus = () => {
-      refresh();
-      refreshPhases();
+
+    let stopped = false;
+    let statsTimer: number | null = null;
+    let phasesTimer: number | null = null;
+
+    const nextDelay = (baseMs: number) => baseMs + Math.floor(Math.random() * REFRESH_JITTER_MS);
+
+    const scheduleStats = () => {
+      statsTimer = window.setTimeout(async () => {
+        if (!stopped) {
+          if (!document.hidden) {
+            await refresh();
+          }
+          scheduleStats();
+        }
+      }, nextDelay(STATS_REFRESH_MS));
     };
-    const interval = window.setInterval(() => {
-      refresh();
-      refreshPhases();
-    }, 15000);
+
+    const schedulePhases = () => {
+      phasesTimer = window.setTimeout(async () => {
+        if (!stopped) {
+          if (!document.hidden) {
+            await refreshPhases();
+          }
+          schedulePhases();
+        }
+      }, nextDelay(PHASES_REFRESH_MS));
+    };
+
+    const handleFocus = () => {
+      void refresh();
+      void refreshPhases();
+    };
+
+    scheduleStats();
+    schedulePhases();
     window.addEventListener("focus", handleFocus);
+
     return () => {
-      window.clearInterval(interval);
+      stopped = true;
+      if (statsTimer !== null) {
+        window.clearTimeout(statsTimer);
+      }
+      if (phasesTimer !== null) {
+        window.clearTimeout(phasesTimer);
+      }
       window.removeEventListener("focus", handleFocus);
     };
   }, [mounted]);
@@ -282,7 +306,11 @@ export default function Home() {
       setStatus({ type: "pending", message: "Transaction submitted" });
       await tx.wait();
       setStatus({ type: "success", message: "Mint successful" });
-      await Promise.all([refresh(), refreshMinters()]);
+      if (ENABLE_MINTERS) {
+        await Promise.all([refresh(), refreshMinters()]);
+      } else {
+        await refresh();
+      }
     } catch (error: any) {
       setStatus({
         type: "error",
@@ -314,19 +342,16 @@ export default function Home() {
       return "0";
     }
   }, [activePhase?.priceEth, mintPrice, launchpadFee, quantity]);
-  const timeZoneLabel = useMemo(() => {
-    try {
-      const parts = new Intl.DateTimeFormat(undefined, { timeZoneName: "short" }).formatToParts(
-        new Date()
-      );
-      const tz = parts.find((part) => part.type === "timeZoneName")?.value;
-      return tz ? `Local time (${tz})` : "Local time";
-    } catch {
-      return "Local time";
+  const timeZoneLabel = "Local time";
+  const resolveMedia = (uri: string) => {
+    if (!uri) return uri;
+    if (uri.startsWith("ipfs://")) {
+      return `https://ipfs.io/ipfs/${uri.replace("ipfs://", "")}`;
     }
-  }, []);
-  const activePreview =
-    previewImages.find((preview) => preview.id === previewId) || previewImages[0];
+    return uri;
+  };
+  const previewSrc = resolveMedia(notRevealedURI || "");
+  const showRevealPreview = Boolean(previewSrc);
 
   useEffect(() => {
     if (!mounted) return;
@@ -341,7 +366,7 @@ export default function Home() {
       }
       try {
         const contract = getReadContract();
-        const allowed = await contract.phaseAllowlist(activePhase.id, address);
+        const allowed = await withReadRetry<any>(() => contract.phaseAllowlist(activePhase.id, address));
         if (allowed) {
           setAllowlistEligible(true);
           return;
@@ -359,6 +384,12 @@ export default function Home() {
     loadEligibility();
   }, [mounted, address, activePhase?.id, activePhase?.allowlistEnabled, activePhase?.allowlistRoot]);
 
+  useEffect(() => {
+    if (!showRevealPreview) {
+      setHiddenMediaLoaded(false);
+    }
+  }, [showRevealPreview, previewSrc]);
+
   if (!mounted) {
     return <div className="min-h-screen bg-hero text-white" />;
   }
@@ -369,7 +400,7 @@ export default function Home() {
         <header className="launch-header">
           <div className="launch-left">
             <div className="brand-mark">
-              <img src="/icons/logo.png" alt="Chill Guins" className="brand-logo" />
+              <span className="brand-wordmark">Lapinoz</span>
             </div>
           </div>
           <div className="launch-right">
@@ -383,7 +414,6 @@ export default function Home() {
             {totalSupply} / {maxSupply} Minted
           </span>
           <span className="info-pill">Launched Feb 2026</span>
-          <span className="info-pill">Art</span>
           <span className={`info-pill ${phaseLive && !paused ? "info-pill-live" : "info-pill-muted"}`}>
             {paused ? "Paused" : phaseLive ? "Minting Now" : "Mint Closed"}
           </span>
@@ -397,26 +427,18 @@ export default function Home() {
           <div className="space-y-6">
             <div className="preview-card">
               <div className="preview-image">
-                <img
-                  src={activePreview.src}
-                  alt={`Chill Guins preview ${activePreview.id}`}
-                />
+                {showRevealPreview ? (
+                  <img
+                    src={previewSrc}
+                    alt="Lapinoz reveal preview"
+                    className={`preview-media ${hiddenMediaLoaded ? "is-loaded" : ""}`}
+                    onLoad={() => setHiddenMediaLoaded(true)}
+                  />
+                ) : (
+                  <div className="preview-empty">Set Reveal Image URI from Admin.</div>
+                )}
               </div>
-              <div className="preview-caption">Preview #{activePreview.id}</div>
-              <div className="preview-thumbs">
-                {previewImages.map((preview) => (
-                  <button
-                    key={preview.id}
-                    type="button"
-                    className={`preview-thumb ${
-                      preview.id === activePreview.id ? "is-active" : ""
-                    }`}
-                    onClick={() => setPreviewId(preview.id)}
-                  >
-                    <img src={preview.src} alt={`Preview ${preview.id}`} />
-                  </button>
-                ))}
-              </div>
+              <div className="preview-caption">Reveal Preview</div>
             </div>
 
             <div className="glass-card">
@@ -425,33 +447,6 @@ export default function Home() {
                 <span className="text-xs text-slate-400">
                   {minters.length} wallet{minters.length === 1 ? "" : "s"}
                 </span>
-              </div>
-              <div className="mt-4">
-                {mintersLoading ? (
-                  <p className="text-sm text-slate-400">Loading wallets...</p>
-                ) : mintersError ? (
-                  <p className="text-sm text-red-300">{mintersError}</p>
-                ) : mintersNotice ? (
-                  <p className="text-sm text-slate-400">{mintersNotice}</p>
-                ) : minters.length === 0 ? (
-                  <p className="text-sm text-slate-400">No mints yet.</p>
-                ) : (
-                  <div className="max-h-64 space-y-2 overflow-y-auto pr-1 text-sm text-slate-300">
-                    {minters.map((minter) => (
-                      <div
-                        key={minter.address}
-                        className="flex items-center justify-between rounded-xl border border-slate-800/80 bg-slate-900/60 px-3 py-2"
-                      >
-                        <span className="font-mono text-xs text-slate-200" title={minter.address}>
-                          {formatAddress(minter.address)}
-                        </span>
-                        <span className="text-xs text-slate-400">
-                          {minter.count} mint{minter.count === 1 ? "" : "s"}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                )}
               </div>
             </div>
           </div>

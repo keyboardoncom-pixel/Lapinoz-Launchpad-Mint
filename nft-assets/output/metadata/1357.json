@@ -1,0 +1,35 @@
+{
+  "name": "Lapinoz #1357",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/1357.png",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Beige"
+    },
+    {
+      "trait_type": "Base",
+      "value": "Crimson King"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Confused"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "Demon Knight"
+    },
+    {
+      "trait_type": "Head",
+      "value": "Penitent Helmet"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Halberd"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "name": "Lapinoz #1155",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/1155.png",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Sky"
+    },
+    {
+      "trait_type": "Base",
+      "value": "Crimson King"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Empty Smile"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "Eldritch Acolyte"
+    },
+    {
+      "trait_type": "Head",
+      "value": "Abyss Helmet"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Ritual Sword"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    }
+  ]
+}

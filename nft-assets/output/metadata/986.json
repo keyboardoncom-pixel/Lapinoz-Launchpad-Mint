@@ -1,0 +1,35 @@
+{
+  "name": "Lapinoz #986",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/986.png",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Beige"
+    },
+    {
+      "trait_type": "Base",
+      "value": "Deep Ocean"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Shyness"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "Dark Knight"
+    },
+    {
+      "trait_type": "Head",
+      "value": "Sigil Cap"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Dagger"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    }
+  ]
+}

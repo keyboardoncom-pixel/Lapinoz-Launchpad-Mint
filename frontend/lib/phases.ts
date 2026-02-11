@@ -27,24 +27,14 @@ export const formatPhaseWindow = (phase: Phase) => {
       ? new Date(unix * 1000).toLocaleString(undefined, {
           dateStyle: "medium",
           timeStyle: "short",
+          hour12: true,
         })
       : "";
   const start = formatDate(phase.startsAt);
   const end = formatDate(phase.endsAt);
-  const tz = (() => {
-    try {
-      const parts = new Intl.DateTimeFormat(undefined, { timeZoneName: "short" }).formatToParts(
-        new Date()
-      );
-      return parts.find((part) => part.type === "timeZoneName")?.value || "";
-    } catch {
-      return "";
-    }
-  })();
-  const suffix = tz ? ` (${tz})` : "";
-  if (start && end) return `${start} → ${end}${suffix}`;
-  if (start) return `Starts ${start}${suffix}`;
-  if (end) return `Ends ${end}${suffix}`;
+  if (start && end) return `${start} → ${end}`;
+  if (start) return `Starts ${start}`;
+  if (end) return `Ends ${end}`;
   return "Open-ended";
 };
 

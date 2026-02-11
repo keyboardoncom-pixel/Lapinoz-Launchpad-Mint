@@ -1,0 +1,35 @@
+{
+  "name": "Lapinoz #937",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/937.png",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Ash"
+    },
+    {
+      "trait_type": "Base",
+      "value": "Deep Ocean"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Sorrow"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "High Priest"
+    },
+    {
+      "trait_type": "Head",
+      "value": "Broken Knight Helmet"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Execution Hammer"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Epic"
+    }
+  ]
+}

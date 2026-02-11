@@ -1,35 +1,35 @@
 {
-  "name": "Chill Guins #87",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/87.png",
+  "name": "Lapinoz #87",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/87.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Blue"
+      "value": "Beige"
     },
     {
-      "trait_type": "Body",
-      "value": "Purple"
+      "trait_type": "Base",
+      "value": "Deep Ocean"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Evil"
     },
     {
       "trait_type": "Clothes",
-      "value": "Ocean Shirt"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Tired"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Sad"
+      "value": "Merchant"
     },
     {
       "trait_type": "Head",
-      "value": "Adventurers Headband"
+      "value": "Beretta"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Ritual Sword"
     },
     {
       "trait_type": "Rarity",
-      "value": "Common"
+      "value": "Epic"
     }
   ]
 }

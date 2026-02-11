@@ -1,31 +1,31 @@
 {
-  "name": "Chill Guins #15",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/15.png",
+  "name": "Lapinoz #15",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/15.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Dark Blue"
-    },
-    {
-      "trait_type": "Body",
       "value": "Brown"
     },
     {
+      "trait_type": "Base",
+      "value": "Crimson King"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Empty Smile"
+    },
+    {
       "trait_type": "Clothes",
-      "value": "Grey Stripe Hoodie"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Open"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Annoying"
+      "value": "Bone Necromancer"
     },
     {
       "trait_type": "Head",
-      "value": "Spike Crown"
+      "value": "Pilgrim Hat"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Dagger"
     },
     {
       "trait_type": "Rarity",

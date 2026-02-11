@@ -1,0 +1,35 @@
+{
+  "name": "Lapinoz #517",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/517.png",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Sky"
+    },
+    {
+      "trait_type": "Base",
+      "value": "Darkness"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Shyness"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "Peasant Farmers "
+    },
+    {
+      "trait_type": "Head",
+      "value": "Beretta"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Battle Axe"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    }
+  ]
+}

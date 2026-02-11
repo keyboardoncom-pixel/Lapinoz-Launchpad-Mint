@@ -1,35 +1,35 @@
 {
-  "name": "Chill Guins #43",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/43.png",
+  "name": "Lapinoz #43",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/43.png",
   "attributes": [
     {
       "trait_type": "Background",
       "value": "Brown"
     },
     {
-      "trait_type": "Body",
-      "value": "Black"
+      "trait_type": "Base",
+      "value": "Crimson King"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Worried"
     },
     {
       "trait_type": "Clothes",
-      "value": "Beach Lifeguard"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Open"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Annoying"
+      "value": "Slave Tunic"
     },
     {
       "trait_type": "Head",
-      "value": "Sunglasses"
+      "value": "Stone Crown"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Ritual Sword"
     },
     {
       "trait_type": "Rarity",
-      "value": "Epic"
+      "value": "Common"
     }
   ]
 }

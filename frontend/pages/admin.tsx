@@ -9,6 +9,7 @@ import {
   isSameAddress,
   MINTNFT_ABI,
   TARGET_CHAIN_ID,
+  withReadRetry,
 } from "../lib/contract";
 import WalletMenu from "../components/WalletMenu";
 import { Phase, formatPhaseWindow, fromInputDateTime, getPhaseStatus, toInputDateTime } from "../lib/phases";
@@ -35,8 +36,12 @@ export default function Admin() {
 
   const [owner, setOwner] = useState<string>("");
   const [baseURI, setBaseURI] = useState<string>("");
+  const [notRevealedURI, setNotRevealedURI] = useState<string>("");
   const [mintPrice, setMintPrice] = useState("0");
+  const [maxSupply, setMaxSupply] = useState("0");
+  const [maxSupplyInput, setMaxSupplyInput] = useState("");
   const [maxMintPerWallet, setMaxMintPerWallet] = useState("0");
+  const [withdrawableBalance, setWithdrawableBalance] = useState("0");
   const [launchpadFee, setLaunchpadFee] = useState("0");
   const [feeRecipient, setFeeRecipient] = useState<string>("");
   const [feeRecipientInput, setFeeRecipientInput] = useState("");
@@ -87,32 +92,49 @@ export default function Admin() {
         locked,
         isRevealed,
         currentBaseURI,
+        currentNotRevealedURI,
         price,
+        supply,
         maxPerWallet,
         fee,
         recipient,
-      ] = await Promise.all([
-        contract.owner(),
-        contract.paused(),
-        contract.transfersLocked(),
-        contract.revealed(),
-        contract.baseURI(),
-        contract.mintPrice(),
-        contract.maxMintPerWallet(),
-        contract.launchpadFee(),
-        contract.feeRecipient(),
-      ]);
+      ] = await withReadRetry(() =>
+        Promise.all([
+          contract.owner(),
+          contract.paused(),
+          contract.transfersLocked(),
+          contract.revealed(),
+          contract.baseURI(),
+          contract.notRevealedURI(),
+          contract.mintPrice(),
+          contract.maxSupply(),
+          contract.maxMintPerWallet(),
+          contract.launchpadFee(),
+          contract.feeRecipient(),
+        ])
+      );
       setOwner(ownerAddress);
       setPaused(isPaused);
       setTransfersLocked(locked);
       setRevealed(isRevealed);
       setBaseURI(currentBaseURI || "");
+      setNotRevealedURI(currentNotRevealedURI || "");
       setMintPrice(ethers.utils.formatEther(price));
+      setMaxSupply(supply.toString());
+      if (!maxSupplyInput) {
+        setMaxSupplyInput(supply.toString());
+      }
       setMaxMintPerWallet(maxPerWallet.toString());
       setLaunchpadFee(ethers.utils.formatEther(fee));
       setFeeRecipient(recipient || "");
       setLaunchpadFeeInput(ethers.utils.formatEther(fee));
       setFeeRecipientInput(recipient || "");
+      try {
+        const balance = await withReadRetry(() => contract.provider.getBalance(CONTRACT_ADDRESS));
+        setWithdrawableBalance(ethers.utils.formatEther(balance));
+      } catch {
+        setWithdrawableBalance("0");
+      }
       if (status.type === "error") {
         setStatus({ type: "idle", message: "" });
       }
@@ -137,8 +159,9 @@ export default function Admin() {
   const refreshPhases = async () => {
     try {
       const contract = await getAdminReadContract();
-      const count = await contract.phaseCount();
-      const active = await contract.getActivePhase();
+      const [count, active] = await withReadRetry(() =>
+        Promise.all([contract.phaseCount(), contract.getActivePhase()])
+      );
       if (active?.[0]) {
         setActivePhaseInfo({ id: Number(active[1]), name: active[2] });
       } else {
@@ -146,11 +169,12 @@ export default function Admin() {
       }
       const items = await Promise.all(
         Array.from({ length: Number(count) }).map(async (_, index) => {
-          const phase = await contract.phases(index);
+          const phase = await withReadRetry<any>(() => contract.phases(index));
           const exists = phase.exists ?? phase[5];
           if (!exists) return null;
-          const allowlist = await contract.phaseAllowlistEnabled(index);
-          const root = await contract.phaseMerkleRoot(index);
+          const [allowlist, root] = await withReadRetry(() =>
+            Promise.all([contract.phaseAllowlistEnabled(index), contract.phaseMerkleRoot(index)])
+          );
           return {
             id: index,
             name: phase.name,
@@ -232,6 +256,38 @@ export default function Admin() {
     await withTx(async () => {
       const contract = await getWriteContract(account, chain);
       const tx = await contract.setBaseURI(baseURI.trim());
+      await tx.wait();
+    });
+  };
+
+  const handleSetNotRevealedURI = async () => {
+    if (!ensureReady()) return;
+    if (!notRevealedURI.trim()) {
+      setStatus({ type: "error", message: "Reveal image URI cannot be empty" });
+      return;
+    }
+    await withTx(async () => {
+      const contract = await getWriteContract(account, chain);
+      const tx = await contract.setNotRevealedURI(notRevealedURI.trim());
+      await tx.wait();
+    });
+  };
+
+  const handleSetMaxSupply = async () => {
+    if (!ensureReady()) return;
+    const nextValue = Number(maxSupplyInput);
+    const currentValue = Number(maxSupply);
+    if (!Number.isFinite(nextValue) || nextValue <= 0) {
+      setStatus({ type: "error", message: "Enter a valid max supply" });
+      return;
+    }
+    if (nextValue >= currentValue) {
+      setStatus({ type: "error", message: "Cut supply must be lower than current max supply" });
+      return;
+    }
+    await withTx(async () => {
+      const contract = await getWriteContract(account, chain);
+      const tx = await contract.setMaxSupply(nextValue);
       await tx.wait();
     });
   };
@@ -450,8 +506,8 @@ export default function Admin() {
     }
     try {
       const contract = await getAdminReadContract();
-      const statuses = await Promise.all(
-        wallets.map((wallet) => contract.phaseAllowlist(allowlistPhaseId, wallet))
+      const statuses = await withReadRetry(() =>
+        Promise.all(wallets.map((wallet) => contract.phaseAllowlist(allowlistPhaseId, wallet)))
       );
       const next: Record<string, boolean> = {};
       wallets.forEach((wallet, index) => {
@@ -588,7 +644,7 @@ export default function Admin() {
         <header className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
           <div className="space-y-2">
             <p className="text-xs uppercase tracking-[0.4em] text-slate-400">Admin Console</p>
-            <h1 className="text-3xl font-semibold sm:text-4xl">Chill Guins Control Room</h1>
+            <h1 className="text-3xl font-semibold sm:text-4xl">Lapinoz Control Room</h1>
             <p className="text-sm text-slate-300">
               Manage mint status, metadata, and treasury actions from the owner wallet.
             </p>
@@ -617,6 +673,19 @@ export default function Admin() {
 
         {canManage ? (
           <>
+            {status.message ? (
+              <div
+                className={`mt-6 rounded-2xl border p-4 text-sm ${
+                  status.type === "success"
+                    ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-200"
+                    : status.type === "error"
+                    ? "border-red-500/40 bg-red-500/10 text-red-200"
+                    : "border-slate-700 bg-slate-800 text-slate-300"
+                }`}
+              >
+                {status.message}
+              </div>
+            ) : null}
             <div className="quick-bar">
               <div className="quick-bar-card">
                 <div>
@@ -671,29 +740,76 @@ export default function Admin() {
               </div>
             </div>
 
-            <main className="mt-10 grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
+            <main className="mt-8 grid gap-6">
             <section className="glass-card space-y-6">
               <div>
                 <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Collection Controls</p>
                 <h2 className="text-2xl font-semibold">Mint Operations</h2>
               </div>
 
-              <div className="rounded-2xl border border-slate-800/80 bg-slate-900/60 p-5">
-                <label className="text-xs uppercase tracking-[0.2em] text-slate-500">Base URI (IPFS)</label>
-                <div className="mt-3 flex flex-col gap-3 sm:flex-row">
-                  <input
-                    className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-2 text-sm text-white"
-                    placeholder="ipfs://CID/"
-                    value={baseURI}
-                    onChange={(e) => setBaseURI(e.target.value)}
-                  />
+              <div className="space-y-6">
+                  <div className="rounded-2xl border border-slate-800/80 bg-slate-900/60 p-5">
+                    <label className="text-xs uppercase tracking-[0.2em] text-slate-500">Base URI (IPFS)</label>
+                    <div className="mt-3 flex flex-col gap-3 sm:flex-row">
+                      <input
+                        className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-2 text-sm text-white"
+                        placeholder="ipfs://CID/"
+                        value={baseURI}
+                        onChange={(e) => setBaseURI(e.target.value)}
+                      />
                   <button
-                    className="rounded-xl bg-white px-4 py-2 text-sm font-semibold text-slate-900"
+                    className="admin-action rounded-xl bg-white px-4 py-2 text-sm font-semibold text-slate-900"
                     onClick={handleSetBaseURI}
                   >
                     Set Base URI
                   </button>
-                </div>
+                    </div>
+                  </div>
+
+                  <div className="rounded-2xl border border-slate-800/80 bg-slate-900/60 p-5">
+                    <label className="text-xs uppercase tracking-[0.2em] text-slate-500">
+                      Reveal Image URI (GIF/IPFS)
+                    </label>
+                    <div className="mt-3 flex flex-col gap-3 sm:flex-row">
+                      <input
+                        className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-2 text-sm text-white"
+                        placeholder="ipfs://CID/hidden.gif"
+                        value={notRevealedURI}
+                        onChange={(e) => setNotRevealedURI(e.target.value)}
+                      />
+                  <button
+                    className="admin-action rounded-xl bg-white px-4 py-2 text-sm font-semibold text-slate-900"
+                    onClick={handleSetNotRevealedURI}
+                  >
+                    Set Reveal Image
+                  </button>
+                    </div>
+                    <p className="mt-3 text-xs text-slate-400">
+                      This image is shown before metadata reveal. Use a GIF or PNG on IPFS.
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl border border-slate-800/80 bg-slate-900/60 p-5">
+                    <label className="text-xs uppercase tracking-[0.2em] text-slate-500">Cut Max Supply</label>
+                    <div className="mt-3 flex flex-col gap-3 sm:flex-row">
+                      <input
+                        className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-2 text-sm text-white"
+                        type="number"
+                        min="1"
+                        value={maxSupplyInput}
+                        onChange={(e) => setMaxSupplyInput(e.target.value)}
+                      />
+                  <button
+                    className="admin-action rounded-xl bg-white px-4 py-2 text-sm font-semibold text-slate-900"
+                    onClick={handleSetMaxSupply}
+                  >
+                    Cut Supply
+                  </button>
+                    </div>
+                    <p className="mt-3 text-xs text-slate-400">
+                      Current max supply: {maxSupply}. This can only be reduced and cannot go below minted supply.
+                    </p>
+                  </div>
               </div>
 
               <div className="rounded-2xl border border-slate-800/80 bg-slate-900/60 p-5">
@@ -726,7 +842,7 @@ export default function Admin() {
                 </div>
                 <div className="phase-actions-row">
                   <button
-                    className="rounded-xl bg-white px-4 py-2 text-sm font-semibold text-slate-900"
+                    className="admin-action rounded-xl bg-white px-4 py-2 text-sm font-semibold text-slate-900"
                     onClick={handleUpdateLaunchpadFee}
                   >
                     Update Fee
@@ -738,19 +854,27 @@ export default function Admin() {
                 </div>
               </div>
 
-              <div className="rounded-2xl border border-slate-800/80 bg-slate-900/60 p-5">
-                <div className="flex flex-wrap items-center justify-between gap-3">
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Phase Manager</p>
-                    <h3 className="text-lg font-semibold">Mint Phases</h3>
+              <details className="admin-details" open>
+                <summary className="admin-summary">
+                  <div className="admin-summary-left">
+                    <p className="admin-summary-title">Mint Phases</p>
+                    <p className="admin-summary-subtitle">Schedule, price, and limits</p>
                   </div>
-                  <button
-                    className="rounded-xl border border-slate-700 px-3 py-2 text-xs uppercase tracking-[0.2em]"
-                    onClick={resetPhaseForm}
-                  >
-                    Clear
-                  </button>
-                </div>
+                  <span className="admin-summary-pill">Phases</span>
+                </summary>
+                <div className="mt-4 rounded-2xl border border-slate-800/80 bg-slate-900/60 p-5">
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Phase Manager</p>
+                      <h3 className="text-lg font-semibold">Mint Phases</h3>
+                    </div>
+                    <button
+                      className="rounded-xl border border-slate-700 px-3 py-2 text-xs uppercase tracking-[0.2em]"
+                      onClick={resetPhaseForm}
+                    >
+                      Clear
+                    </button>
+                  </div>
 
                 <div className="mt-4 phase-grid">
                   <label className="phase-field">
@@ -873,31 +997,40 @@ export default function Admin() {
                   )}
                 </div>
               </div>
+              </details>
 
-              <div className="rounded-2xl border border-slate-800/80 bg-slate-900/60 p-5">
-                <div className="flex flex-wrap items-center justify-between gap-3">
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Phase Allowlist</p>
-                    <h3 className="text-lg font-semibold">Wallet Eligibility</h3>
+              <details className="admin-details">
+                <summary className="admin-summary">
+                  <div className="admin-summary-left">
+                    <p className="admin-summary-title">Wallet Eligibility</p>
+                    <p className="admin-summary-subtitle">Allowlist & merkle settings</p>
                   </div>
-                  <select
-                    className="rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-xs text-white"
-                    value={allowlistPhaseId ?? ""}
-                    onChange={(event) => {
-                      const value = event.target.value;
-                      setAllowlistPhaseId(value ? Number(value) : null);
-                    }}
-                  >
-                    {phases.length === 0 ? (
-                      <option value="">No phases</option>
-                    ) : null}
-                    {phases.map((phase) => (
-                      <option key={phase.id} value={phase.id}>
-                        {phase.name} (ID {phase.id})
-                      </option>
-                    ))}
-                  </select>
-                </div>
+                  <span className="admin-summary-pill">Allowlist</span>
+                </summary>
+                <div className="mt-4 rounded-2xl border border-slate-800/80 bg-slate-900/60 p-5">
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Phase Allowlist</p>
+                      <h3 className="text-lg font-semibold">Wallet Eligibility</h3>
+                    </div>
+                    <select
+                      className="rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-xs text-white"
+                      value={allowlistPhaseId ?? ""}
+                      onChange={(event) => {
+                        const value = event.target.value;
+                        setAllowlistPhaseId(value ? Number(value) : null);
+                      }}
+                    >
+                      {phases.length === 0 ? (
+                        <option value="">No phases</option>
+                      ) : null}
+                      {phases.map((phase) => (
+                        <option key={phase.id} value={phase.id}>
+                          {phase.name} (ID {phase.id})
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 {activePhaseInfo ? (
                   <div className="mt-3 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-800/80 bg-slate-950/70 px-4 py-2 text-xs text-slate-300">
                     <span>
@@ -930,27 +1063,6 @@ export default function Admin() {
                   >
                     <span className="toggle-thumb" />
                   </button>
-                </div>
-
-                <div className="mt-4">
-                  <label className="phase-label">Merkle root (optional)</label>
-                  <div className="mt-2 flex flex-col gap-3 sm:flex-row">
-                    <input
-                      className="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-white"
-                      placeholder="0x..."
-                      value={allowlistRoot}
-                      onChange={(event) => setAllowlistRoot(event.target.value)}
-                    />
-                    <button
-                      className="rounded-xl bg-white px-4 py-2 text-sm font-semibold text-slate-900"
-                      onClick={handleSetAllowlistRoot}
-                    >
-                      Set Merkle Root
-                    </button>
-                  </div>
-                  <p className="mt-2 text-xs text-slate-500">
-                    Leave empty to clear. If a root is set, wallet proofs are required.
-                  </p>
                 </div>
 
                 <div className="mt-4">
@@ -1030,30 +1142,31 @@ export default function Admin() {
                   ) : null}
                 </div>
               </div>
+              </details>
 
-              <button
-                className="w-full rounded-xl border border-slate-700 px-4 py-2 text-sm"
-                onClick={handleWithdraw}
-                disabled={isBusy}
-              >
-                Withdraw {NATIVE_SYMBOL}
-              </button>
-
-              {status.message ? (
-                <div
-                  className={`rounded-2xl border p-4 text-sm ${
-                    status.type === "success"
-                      ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-200"
-                      : status.type === "error"
-                      ? "border-red-500/40 bg-red-500/10 text-red-200"
-                      : "border-slate-700 bg-slate-800 text-slate-300"
-                  }`}
-                >
-                  {status.message}
+              <div className="rounded-2xl border border-slate-800/80 bg-slate-900/60 p-5">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Treasury</p>
+                    <h3 className="text-lg font-semibold">Withdrawable Balance</h3>
+                  </div>
+                  <span className="text-lg font-semibold text-white">
+                    {withdrawableBalance} {NATIVE_SYMBOL}
+                  </span>
                 </div>
-              ) : null}
-            </section>
+                <button
+                  className="mt-4 w-full rounded-xl border border-slate-700 px-4 py-2 text-sm"
+                  onClick={handleWithdraw}
+                  disabled={isBusy}
+                >
+                  Withdraw {NATIVE_SYMBOL}
+                </button>
+                <p className="mt-3 text-xs text-slate-400">
+                  This is ETH currently held inside the contract (fees or accidental transfers).
+                </p>
+              </div>
 
+            </section>
             <section className="space-y-6">
               <div className="glass-card">
                 <h3 className="text-lg font-semibold">System Status</h3>

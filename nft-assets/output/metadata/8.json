@@ -1,31 +1,31 @@
 {
-  "name": "Chill Guins #8",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/8.png",
+  "name": "Lapinoz #8",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/8.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Yellow"
+      "value": "Brown"
     },
     {
-      "trait_type": "Body",
-      "value": "Grey"
+      "trait_type": "Base",
+      "value": "Deep Ocean"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Empty Smile"
     },
     {
       "trait_type": "Clothes",
-      "value": "Hawaii Shirt"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Closed"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Neutral"
+      "value": "Cult Mantle"
     },
     {
       "trait_type": "Head",
-      "value": "Red Glasses"
+      "value": "Iron Cage"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Execution Hammer"
     },
     {
       "trait_type": "Rarity",

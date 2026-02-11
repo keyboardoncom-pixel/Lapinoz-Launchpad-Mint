@@ -1,31 +1,31 @@
 {
-  "name": "Chill Guins #19",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/19.png",
+  "name": "Lapinoz #19",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/19.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Pink"
+      "value": "Sage"
     },
     {
-      "trait_type": "Body",
-      "value": "Purple"
+      "trait_type": "Base",
+      "value": "Darkness"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Worried"
     },
     {
       "trait_type": "Clothes",
-      "value": "Flamingo Shirt"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Tired"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Annoying"
+      "value": "Peasant Farmers "
     },
     {
       "trait_type": "Head",
-      "value": "Adventurers Headband"
+      "value": "Iron Halo Thorn"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Greatsword"
     },
     {
       "trait_type": "Rarity",

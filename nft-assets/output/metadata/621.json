@@ -1,0 +1,35 @@
+{
+  "name": "Lapinoz #621",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/621.png",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Ash"
+    },
+    {
+      "trait_type": "Base",
+      "value": "Darkness"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Smirking"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "War Knight"
+    },
+    {
+      "trait_type": "Head",
+      "value": "Nasal Helmet"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Greatsword"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    }
+  ]
+}

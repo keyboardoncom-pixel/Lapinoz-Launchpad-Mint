@@ -1,0 +1,35 @@
+{
+  "name": "Lapinoz #607",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/607.png",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Brown"
+    },
+    {
+      "trait_type": "Base",
+      "value": "Cosmic Entity"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Smirking"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "War Knight"
+    },
+    {
+      "trait_type": "Head",
+      "value": "Iron Halo Thorn"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Halberd"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    }
+  ]
+}

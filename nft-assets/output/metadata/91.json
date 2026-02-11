@@ -1,31 +1,31 @@
 {
-  "name": "Chill Guins #91",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/91.png",
+  "name": "Lapinoz #91",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/91.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Yellow"
+      "value": "Beige"
     },
     {
-      "trait_type": "Body",
-      "value": "Brown"
+      "trait_type": "Base",
+      "value": "Cosmic Entity"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Sorrow"
     },
     {
       "trait_type": "Clothes",
-      "value": "Dark Sweater"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Closed"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Smirk"
+      "value": "Peasant Farmers "
     },
     {
       "trait_type": "Head",
-      "value": "Adventurers Headband"
+      "value": "Beretta"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Wooden Shield"
     },
     {
       "trait_type": "Rarity",

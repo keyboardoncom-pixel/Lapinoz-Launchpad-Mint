@@ -7,6 +7,9 @@
     "generate": "node scripts/generate.js"
   },
   "dependencies": {
+    "@lighthouse-web3/sdk": "^0.4.4",
+    "@pinata/sdk": "^2.1.0",
+    "pinata": "^2.5.4",
     "sharp": "^0.33.5"
   }
 }

@@ -1,0 +1,35 @@
+{
+  "name": "Lapinoz #181",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/181.png",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Ash"
+    },
+    {
+      "trait_type": "Base",
+      "value": "Deep Ocean"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Worried"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "High Priest"
+    },
+    {
+      "trait_type": "Head",
+      "value": "Stone Crown"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Halberd"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    }
+  ]
+}

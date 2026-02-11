@@ -1,0 +1,35 @@
+{
+  "name": "Lapinoz #284",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/284.png",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Beige"
+    },
+    {
+      "trait_type": "Base",
+      "value": "Darkness"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Sorrow"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "Chained Mail"
+    },
+    {
+      "trait_type": "Head",
+      "value": "Nasal Helmet"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Wooden Shield"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    }
+  ]
+}

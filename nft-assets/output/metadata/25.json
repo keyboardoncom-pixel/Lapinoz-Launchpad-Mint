@@ -1,31 +1,31 @@
 {
-  "name": "Chill Guins #25",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/25.png",
+  "name": "Lapinoz #25",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/25.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Green"
+      "value": "Sage"
     },
     {
-      "trait_type": "Body",
-      "value": "Grey"
+      "trait_type": "Base",
+      "value": "Deep Ocean"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Smirking"
     },
     {
       "trait_type": "Clothes",
-      "value": "Holiday Shirt"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Open"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Smile Wide"
+      "value": "Corrupted Noble"
     },
     {
       "trait_type": "Head",
-      "value": "Towel"
+      "value": "Iron Cage"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Execution Hammer"
     },
     {
       "trait_type": "Rarity",

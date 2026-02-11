@@ -1,35 +1,35 @@
 {
-  "name": "Chill Guins #41",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/41.png",
+  "name": "Lapinoz #41",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/41.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Dark Blue"
+      "value": "Ash"
     },
     {
-      "trait_type": "Body",
-      "value": "Grey"
+      "trait_type": "Base",
+      "value": "Deep Ocean"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Confused"
     },
     {
       "trait_type": "Clothes",
-      "value": "Red and Blue Hoodie"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Open"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Smirk"
+      "value": "Peasant Farmers "
     },
     {
       "trait_type": "Head",
-      "value": "Aviary Cap"
+      "value": "Archer Hat"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Cult Staff"
     },
     {
       "trait_type": "Rarity",
-      "value": "Legendary"
+      "value": "Common"
     }
   ]
 }

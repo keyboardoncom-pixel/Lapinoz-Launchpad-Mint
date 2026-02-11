@@ -1,31 +1,31 @@
 {
-  "name": "Chill Guins #103",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/103.png",
+  "name": "Lapinoz #103",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/103.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Dark Blue"
+      "value": "Sky"
     },
     {
-      "trait_type": "Body",
-      "value": "Blue"
+      "trait_type": "Base",
+      "value": "Darkness"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Empty Smile"
     },
     {
       "trait_type": "Clothes",
-      "value": "Shark Hunter"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Tired"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Annoying"
+      "value": "Cult Robe"
     },
     {
       "trait_type": "Head",
-      "value": "Spike Crown"
+      "value": "Pilgrim Hat"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Halberd"
     },
     {
       "trait_type": "Rarity",

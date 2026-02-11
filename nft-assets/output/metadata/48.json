@@ -1,31 +1,31 @@
 {
-  "name": "Chill Guins #48",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/48.png",
+  "name": "Lapinoz #48",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/48.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Blue"
+      "value": "Sky"
     },
     {
-      "trait_type": "Body",
-      "value": "Blue"
+      "trait_type": "Base",
+      "value": "Cosmic Entity"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Confused"
     },
     {
       "trait_type": "Clothes",
-      "value": "Ocean Observer"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Tired"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Smile Wide"
+      "value": "Cult Robe"
     },
     {
       "trait_type": "Head",
-      "value": "Straw Hat"
+      "value": "Plague Mask"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Greatsword"
     },
     {
       "trait_type": "Rarity",

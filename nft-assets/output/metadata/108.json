@@ -1,31 +1,31 @@
 {
-  "name": "Chill Guins #108",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/108.png",
+  "name": "Lapinoz #108",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/108.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Dark Blue"
+      "value": "Ash"
     },
     {
-      "trait_type": "Body",
-      "value": "Brown"
+      "trait_type": "Base",
+      "value": "Deep Ocean"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Evil"
     },
     {
       "trait_type": "Clothes",
-      "value": "Ocean Observer"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Closed"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Neutral"
+      "value": "Bone Necromancer"
     },
     {
       "trait_type": "Head",
-      "value": "Stripes Towel"
+      "value": "Pilgrim Hat"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Cult Staff"
     },
     {
       "trait_type": "Rarity",

@@ -1,35 +1,35 @@
 {
-  "name": "Chill Guins #74",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/74.png",
+  "name": "Lapinoz #74",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/74.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Violet"
+      "value": "Beige"
     },
     {
-      "trait_type": "Body",
-      "value": "Brown"
+      "trait_type": "Base",
+      "value": "Cosmic Entity"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Madness"
     },
     {
       "trait_type": "Clothes",
-      "value": "Ocean Observer"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Tired"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Smirk"
+      "value": "Slave Tunic"
     },
     {
       "trait_type": "Head",
-      "value": "Head Torch On"
+      "value": "Broken Knight Helmet"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Battle Axe"
     },
     {
       "trait_type": "Rarity",
-      "value": "Common"
+      "value": "Epic"
     }
   ]
 }

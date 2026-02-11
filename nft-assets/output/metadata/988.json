@@ -1,0 +1,35 @@
+{
+  "name": "Lapinoz #988",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/988.png",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Sky"
+    },
+    {
+      "trait_type": "Base",
+      "value": "Cosmic Entity"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Smirking"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "Eldritch Acolyte"
+    },
+    {
+      "trait_type": "Head",
+      "value": "Iron Halo Thorn"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Cult Staff"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Epic"
+    }
+  ]
+}

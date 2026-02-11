@@ -1,6 +1,6 @@
 # MintNFT — Ethereum NFT Minting Website (with Immutable Metadata Freeze)
 
-This repo contains a production-ready NFT minting dApp (Next.js + Tailwind + wagmi + ethers) and a Solidity ERC721A contract with phase scheduling, allowlists, and freeze collection support.
+This repo contains a production-ready NFT minting dApp (Next.js + Tailwind + wagmi + ethers) and a Solidity ERC721A contract with phase scheduling, allowlists, transfer lock support, and irreversible metadata freeze support.
 
 **Features:**
 - Phase-based public mint (payable)
@@ -10,6 +10,7 @@ This repo contains a production-ready NFT minting dApp (Next.js + Tailwind + wag
 - Owner withdraw
 - Optional reveal flow
 - Freeze collection (transfer lock)
+- Irreversible metadata freeze
 - Allowlist per phase (manual wallets + Merkle root)
 
 ---
@@ -69,11 +70,22 @@ This repo contains a production-ready NFT minting dApp (Next.js + Tailwind + wag
   - `transfersLocked` is `true` by default
   - Owner can toggle with `setTransfersLocked(bool)`
   - While locked, transfers between wallets revert (minting still works)
+- **Metadata freeze (irreversible)**:
+  - `metadataFrozen` starts as `false`
+  - Owner can call `freezeMetadata()` exactly once
+  - After freeze, `setBaseURI`, `setContractURI`, `setNotRevealedURI`, and `setRevealed` all revert
+  - This makes `tokenURI` behavior immutable on-chain after freezing
 
-### How Freeze Collection Is Enforced On-Chain
+### How Transfer Lock Is Enforced On-Chain
 - Transfers are blocked in `_beforeTokenTransfers` when `from` and `to` are both non-zero addresses.
 - Minting from `address(0)` is still allowed.
 - Owner can unlock transfers using `setTransfersLocked(false)` when ready for secondary sales.
+
+### How Metadata Freeze Is Enforced On-Chain
+- `freezeMetadata()` sets `metadataFrozen = true` and emits `MetadataFrozen()`.
+- There is no unfreeze function.
+- Metadata-mutating functions check `require(!metadataFrozen, "Metadata frozen")`.
+- Any attempt to modify metadata after freeze reverts on-chain.
 
 ---
 
@@ -189,7 +201,15 @@ The frontend will automatically load the proof file to allow eligible wallets to
 
 ---
 
-## Testing Freeze Collection
+## Testing Metadata Freeze
+
+1. Deploy the contract and mint at least one token.
+2. Reveal metadata (`setRevealed(true)`) and set final `baseURI`/`contractURI`.
+3. Call `freezeMetadata()`.
+4. Try calling `setBaseURI`, `setContractURI`, `setNotRevealedURI`, or `setRevealed` again.
+5. Confirm each transaction reverts with `Metadata frozen`.
+
+## Testing Transfer Lock
 
 1. Deploy the contract and mint a token.
 2. While `transfersLocked = true`, try transferring the NFT or listing it on a marketplace.

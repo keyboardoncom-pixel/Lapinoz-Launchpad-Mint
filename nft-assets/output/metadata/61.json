@@ -1,35 +1,35 @@
 {
-  "name": "Chill Guins #61",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/61.png",
+  "name": "Lapinoz #61",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/61.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Violet"
+      "value": "Beige"
     },
     {
-      "trait_type": "Body",
-      "value": "Brown"
+      "trait_type": "Base",
+      "value": "Crimson King"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Evil"
     },
     {
       "trait_type": "Clothes",
-      "value": "Holiday Shirt"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Angry"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Annoying"
+      "value": "Peasant Farmers "
     },
     {
       "trait_type": "Head",
-      "value": "Aviary Goggles"
+      "value": "Wizard Hat"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Ritual Sword"
     },
     {
       "trait_type": "Rarity",
-      "value": "Legendary"
+      "value": "Common"
     }
   ]
 }

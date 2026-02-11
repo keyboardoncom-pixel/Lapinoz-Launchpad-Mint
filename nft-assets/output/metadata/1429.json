@@ -1,0 +1,35 @@
+{
+  "name": "Lapinoz #1429",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/1429.png",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Beige"
+    },
+    {
+      "trait_type": "Base",
+      "value": "Deep Ocean"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Evil"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "War Knight"
+    },
+    {
+      "trait_type": "Head",
+      "value": "Stone Crown"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Execution Hammer"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    }
+  ]
+}

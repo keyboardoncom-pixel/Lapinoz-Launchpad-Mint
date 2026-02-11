@@ -1,35 +1,35 @@
 {
-  "name": "Chill Guins #89",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/89.png",
+  "name": "Lapinoz #89",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/89.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Blue"
+      "value": "Sage"
     },
     {
-      "trait_type": "Body",
-      "value": "Brown"
+      "trait_type": "Base",
+      "value": "Crimson King"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Confused"
     },
     {
       "trait_type": "Clothes",
-      "value": "Pirate King"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Scar"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Annoying"
+      "value": "Peasant Farmers "
     },
     {
       "trait_type": "Head",
-      "value": "Wet Straw Hat"
+      "value": "Plague Mask"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Greatsword"
     },
     {
       "trait_type": "Rarity",
-      "value": "Common"
+      "value": "Epic"
     }
   ]
 }

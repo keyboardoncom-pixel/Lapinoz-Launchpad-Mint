@@ -1,31 +1,31 @@
 {
-  "name": "Chill Guins #52",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/52.png",
+  "name": "Lapinoz #52",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/52.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Pink"
+      "value": "Brown"
     },
     {
-      "trait_type": "Body",
-      "value": "Black"
+      "trait_type": "Base",
+      "value": "Darkness"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Madness"
     },
     {
       "trait_type": "Clothes",
-      "value": "Grey Stripe Hoodie"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Open"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Smirk"
+      "value": "Eldritch Acolyte"
     },
     {
       "trait_type": "Head",
-      "value": "Red Glasses"
+      "value": "Wizard Hat"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Cult Staff"
     },
     {
       "trait_type": "Rarity",

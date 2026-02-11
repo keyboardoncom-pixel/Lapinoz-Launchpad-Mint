@@ -1,31 +1,31 @@
 {
-  "name": "Chill Guins #71",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/71.png",
+  "name": "Lapinoz #71",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/71.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "White"
+      "value": "Brown"
     },
     {
-      "trait_type": "Body",
-      "value": "Purple"
+      "trait_type": "Base",
+      "value": "Deep Ocean"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Shyness"
     },
     {
       "trait_type": "Clothes",
-      "value": "Sailor Outfit"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Tired"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Neutral"
+      "value": "Warlock Garment"
     },
     {
       "trait_type": "Head",
-      "value": "Googles"
+      "value": "Beretta"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Greatsword"
     },
     {
       "trait_type": "Rarity",

@@ -1,0 +1,35 @@
+{
+  "name": "Lapinoz #1208",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/1208.png",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Sky"
+    },
+    {
+      "trait_type": "Base",
+      "value": "Darkness"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Smirking"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "Merchant"
+    },
+    {
+      "trait_type": "Head",
+      "value": "Plague Mask"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Ritual Sword"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    }
+  ]
+}

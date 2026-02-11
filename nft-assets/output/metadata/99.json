@@ -1,31 +1,31 @@
 {
-  "name": "Chill Guins #99",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/99.png",
+  "name": "Lapinoz #99",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/99.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "White"
+      "value": "Sage"
     },
     {
-      "trait_type": "Body",
-      "value": "Grey"
+      "trait_type": "Base",
+      "value": "Deep Ocean"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Smirking"
     },
     {
       "trait_type": "Clothes",
-      "value": "Ocean Observer"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Open"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Neutral"
+      "value": "Beast Warrior"
     },
     {
       "trait_type": "Head",
-      "value": "Adventurers Headband"
+      "value": "Mourner Hat"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Battle Axe"
     },
     {
       "trait_type": "Rarity",

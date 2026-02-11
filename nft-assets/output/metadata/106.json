@@ -1,31 +1,31 @@
 {
-  "name": "Chill Guins #106",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/106.png",
+  "name": "Lapinoz #106",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/106.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Yellow"
+      "value": "Sky"
     },
     {
-      "trait_type": "Body",
-      "value": "Grey"
+      "trait_type": "Base",
+      "value": "Darkness"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Sorrow"
     },
     {
       "trait_type": "Clothes",
-      "value": "Casual Shirt"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Scar"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Smirk"
+      "value": "Corrupted Noble"
     },
     {
       "trait_type": "Head",
-      "value": "Flower Crown"
+      "value": "Plague Mask"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Execution Hammer"
     },
     {
       "trait_type": "Rarity",

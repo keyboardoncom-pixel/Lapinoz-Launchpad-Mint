@@ -1,0 +1,35 @@
+{
+  "name": "Lapinoz #959",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/959.png",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Brown"
+    },
+    {
+      "trait_type": "Base",
+      "value": "Darkness"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Worried"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "Merchant"
+    },
+    {
+      "trait_type": "Head",
+      "value": "Jester Cap"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Ritual Sword"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    }
+  ]
+}

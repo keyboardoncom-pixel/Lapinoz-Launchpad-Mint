@@ -1,0 +1,35 @@
+{
+  "name": "Lapinoz #830",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/830.png",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Ash"
+    },
+    {
+      "trait_type": "Base",
+      "value": "Darkness"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Confused"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "Beast Warrior"
+    },
+    {
+      "trait_type": "Head",
+      "value": "Archer Hat"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Cult Staff"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    }
+  ]
+}

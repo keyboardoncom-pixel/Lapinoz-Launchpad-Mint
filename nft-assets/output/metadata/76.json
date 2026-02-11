@@ -1,35 +1,35 @@
 {
-  "name": "Chill Guins #76",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/76.png",
+  "name": "Lapinoz #76",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/76.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Dark Blue"
+      "value": "Beige"
     },
     {
-      "trait_type": "Body",
-      "value": "Blue"
+      "trait_type": "Base",
+      "value": "Crimson King"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Smirking"
     },
     {
       "trait_type": "Clothes",
-      "value": "Marine Worker"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Scar"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Smirk"
+      "value": "Peasant Farmers "
     },
     {
       "trait_type": "Head",
-      "value": "Sunglasses"
+      "value": "Beretta"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Wooden Shield"
     },
     {
       "trait_type": "Rarity",
-      "value": "Epic"
+      "value": "Common"
     }
   ]
 }

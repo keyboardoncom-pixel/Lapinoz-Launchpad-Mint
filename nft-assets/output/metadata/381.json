@@ -1,0 +1,35 @@
+{
+  "name": "Lapinoz #381",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/381.png",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Sage"
+    },
+    {
+      "trait_type": "Base",
+      "value": "Deep Ocean"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Confused"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "Corrupted Noble"
+    },
+    {
+      "trait_type": "Head",
+      "value": "Beretta"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Greatsword"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    }
+  ]
+}

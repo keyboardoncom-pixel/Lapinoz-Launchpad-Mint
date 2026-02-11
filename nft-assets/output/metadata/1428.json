@@ -1,0 +1,35 @@
+{
+  "name": "Lapinoz #1428",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/1428.png",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Sage"
+    },
+    {
+      "trait_type": "Base",
+      "value": "Darkness"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Sorrow"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "Cult Mantle"
+    },
+    {
+      "trait_type": "Head",
+      "value": "Huntsman Hat"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Dagger"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    }
+  ]
+}

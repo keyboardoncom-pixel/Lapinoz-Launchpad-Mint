@@ -1,0 +1,35 @@
+{
+  "name": "Lapinoz #1472",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/1472.png",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Ash"
+    },
+    {
+      "trait_type": "Base",
+      "value": "Crimson King"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Shyness"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "Brigandine Armor"
+    },
+    {
+      "trait_type": "Head",
+      "value": "Abyss Helmet"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Ritual Sword"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    }
+  ]
+}

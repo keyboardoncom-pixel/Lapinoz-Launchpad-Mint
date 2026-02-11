@@ -1,31 +1,31 @@
 {
-  "name": "Chill Guins #83",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/83.png",
+  "name": "Lapinoz #83",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/83.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "White"
+      "value": "Ash"
     },
     {
-      "trait_type": "Body",
-      "value": "Grey"
+      "trait_type": "Base",
+      "value": "Cosmic Entity"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Smirking"
     },
     {
       "trait_type": "Clothes",
-      "value": "Beach Lifeguard"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Closed"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Sad"
+      "value": "Eldritch Acolyte"
     },
     {
       "trait_type": "Head",
-      "value": "Fighter Headband"
+      "value": "Flat Cap"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Battle Axe"
     },
     {
       "trait_type": "Rarity",

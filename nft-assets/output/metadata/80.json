@@ -1,31 +1,31 @@
 {
-  "name": "Chill Guins #80",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/80.png",
+  "name": "Lapinoz #80",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/80.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Cyan"
+      "value": "Brown"
     },
     {
-      "trait_type": "Body",
-      "value": "Black"
+      "trait_type": "Base",
+      "value": "Cosmic Entity"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Evil"
     },
     {
       "trait_type": "Clothes",
-      "value": "Warm Sweater"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Tired"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Annoying"
+      "value": "Assassin"
     },
     {
       "trait_type": "Head",
-      "value": "Visor Cap"
+      "value": "Penitent Helmet"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Greatsword"
     },
     {
       "trait_type": "Rarity",

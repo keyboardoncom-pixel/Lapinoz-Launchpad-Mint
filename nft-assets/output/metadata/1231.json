@@ -1,0 +1,35 @@
+{
+  "name": "Lapinoz #1231",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/1231.png",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Ash"
+    },
+    {
+      "trait_type": "Base",
+      "value": "Crimson King"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Madness"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "Slave Tunic"
+    },
+    {
+      "trait_type": "Head",
+      "value": "Huntsman Hat"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Cult Staff"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    }
+  ]
+}

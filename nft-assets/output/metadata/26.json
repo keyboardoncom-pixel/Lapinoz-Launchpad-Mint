@@ -1,31 +1,31 @@
 {
-  "name": "Chill Guins #26",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/26.png",
+  "name": "Lapinoz #26",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/26.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "White"
-    },
-    {
-      "trait_type": "Body",
       "value": "Brown"
     },
     {
+      "trait_type": "Base",
+      "value": "Darkness"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Smirking"
+    },
+    {
       "trait_type": "Clothes",
-      "value": "Dark Sweater"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Closed"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Neutral"
+      "value": "Peasant Tunic"
     },
     {
       "trait_type": "Head",
-      "value": "Aviary Goggles"
+      "value": "Beretta"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Halberd"
     },
     {
       "trait_type": "Rarity",

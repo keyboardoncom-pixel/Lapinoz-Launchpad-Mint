@@ -1,31 +1,31 @@
 {
-  "name": "Chill Guins #10",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/10.png",
+  "name": "Lapinoz #10",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/10.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Cyan"
+      "value": "Beige"
     },
     {
-      "trait_type": "Body",
-      "value": "Purple"
+      "trait_type": "Base",
+      "value": "Cosmic Entity"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Evil"
     },
     {
       "trait_type": "Clothes",
-      "value": "Dark Sweater"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Open"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Smirk"
+      "value": "Cult Mantle"
     },
     {
       "trait_type": "Head",
-      "value": "Head Torch On"
+      "value": "Flat Cap"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Battle Axe"
     },
     {
       "trait_type": "Rarity",

@@ -10,6 +10,13 @@ const metadataDir = path.join(outputDir, "metadata");
 const configPath = path.join(rootDir, "config.json");
 
 const config = JSON.parse(fs.readFileSync(configPath, "utf8"));
+const OUTPUT_SIZE = Number(config.outputSize) > 0 ? Number(config.outputSize) : 512;
+const PNG_OPTIONS = {
+  compressionLevel: 9,
+  adaptiveFiltering: true,
+  palette: true,
+  effort: 10,
+};
 
 function listPngs(dir) {
   return fs
@@ -139,11 +146,31 @@ async function main() {
       throw new Error("Failed to generate unique combinations");
     }
 
-    const baseImage = selection[0];
-    const composites = selection.slice(1).map((file) => ({ input: file }));
+    const normalizedLayers = await Promise.all(
+      selection.map((file) =>
+        sharp(file)
+          .resize(OUTPUT_SIZE, OUTPUT_SIZE, {
+            fit: "contain",
+            background: { r: 0, g: 0, b: 0, alpha: 0 },
+          })
+          .png(PNG_OPTIONS)
+          .toBuffer()
+      )
+    );
+    const composites = normalizedLayers.map((input) => ({ input }));
 
     const outImagePath = path.join(imagesDir, `${i}.png`);
-    await sharp(baseImage).composite(composites).png().toFile(outImagePath);
+    await sharp({
+      create: {
+        width: OUTPUT_SIZE,
+        height: OUTPUT_SIZE,
+        channels: 4,
+        background: { r: 0, g: 0, b: 0, alpha: 0 },
+      },
+    })
+      .composite(composites)
+      .png(PNG_OPTIONS)
+      .toFile(outImagePath);
 
     const attributes = layers.map((layer, idx) => ({
       trait_type: layer.name,
@@ -160,7 +187,7 @@ async function main() {
     };
 
     const outMetadataPath = path.join(metadataDir, `${i}.json`);
-    fs.writeFileSync(outMetadataPath, JSON.stringify(metadata, null, 2));
+    fs.writeFileSync(outMetadataPath, JSON.stringify(metadata));
 
     if (i % 10 === 0 || i === supply) {
       console.log(`Generated ${i}/${supply}`);

@@ -1,35 +1,35 @@
 {
-  "name": "Chill Guins #90",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/90.png",
+  "name": "Lapinoz #90",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/90.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Yellow"
+      "value": "Sky"
     },
     {
-      "trait_type": "Body",
-      "value": "Brown"
+      "trait_type": "Base",
+      "value": "Cosmic Entity"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Sorrow"
     },
     {
       "trait_type": "Clothes",
-      "value": "Ocean Observer"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Tired"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Smirk"
+      "value": "Dark Knight"
     },
     {
       "trait_type": "Head",
-      "value": "Red Cap"
+      "value": "Sigil Cap"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Ritual Sword"
     },
     {
       "trait_type": "Rarity",
-      "value": "Epic"
+      "value": "Common"
     }
   ]
 }

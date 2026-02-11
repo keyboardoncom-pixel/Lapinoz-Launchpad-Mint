@@ -1,0 +1,35 @@
+{
+  "name": "Lapinoz #147",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/147.png",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Sage"
+    },
+    {
+      "trait_type": "Base",
+      "value": "Deep Ocean"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Sorrow"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "Poor Mantle"
+    },
+    {
+      "trait_type": "Head",
+      "value": "Flat Cap"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Halberd"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Legendary"
+    }
+  ]
+}

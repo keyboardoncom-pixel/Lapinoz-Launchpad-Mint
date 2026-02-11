@@ -1,35 +1,35 @@
 {
-  "name": "Chill Guins #9",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/9.png",
+  "name": "Lapinoz #9",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/9.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Brown"
+      "value": "Beige"
     },
     {
-      "trait_type": "Body",
-      "value": "Blue"
+      "trait_type": "Base",
+      "value": "Darkness"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Smirking"
     },
     {
       "trait_type": "Clothes",
-      "value": "Office Boy"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Scar"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Smile Wide"
+      "value": "War Knight"
     },
     {
       "trait_type": "Head",
-      "value": "Visor Cap"
+      "value": "Sigil Cap"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Halberd"
     },
     {
       "trait_type": "Rarity",
-      "value": "Common"
+      "value": "Legendary"
     }
   ]
 }

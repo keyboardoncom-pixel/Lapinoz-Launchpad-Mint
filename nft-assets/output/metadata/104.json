@@ -1,31 +1,31 @@
 {
-  "name": "Chill Guins #104",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/104.png",
+  "name": "Lapinoz #104",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/104.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Brown"
+      "value": "Beige"
     },
     {
-      "trait_type": "Body",
-      "value": "Brown"
+      "trait_type": "Base",
+      "value": "Cosmic Entity"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Madness"
     },
     {
       "trait_type": "Clothes",
-      "value": "Dark Sweater"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Closed"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Sad"
+      "value": "Cult Mantle"
     },
     {
       "trait_type": "Head",
-      "value": "Blue Cap"
+      "value": "Pilgrim Hat"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Execution Hammer"
     },
     {
       "trait_type": "Rarity",

@@ -1,31 +1,31 @@
 {
-  "name": "Chill Guins #29",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/29.png",
+  "name": "Lapinoz #29",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/29.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Blue"
+      "value": "Brown"
     },
     {
-      "trait_type": "Body",
-      "value": "Black"
+      "trait_type": "Base",
+      "value": "Deep Ocean"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Confused"
     },
     {
       "trait_type": "Clothes",
-      "value": "Marine Outfit"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Tired"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Annoying"
+      "value": "Cult Mantle"
     },
     {
       "trait_type": "Head",
-      "value": "Aviary Cap"
+      "value": "Stone Crown"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Greatsword"
     },
     {
       "trait_type": "Rarity",

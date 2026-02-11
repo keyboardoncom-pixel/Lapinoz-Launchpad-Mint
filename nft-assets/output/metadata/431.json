@@ -1,0 +1,35 @@
+{
+  "name": "Lapinoz #431",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/431.png",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Brown"
+    },
+    {
+      "trait_type": "Base",
+      "value": "Cosmic Entity"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Evil"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "Beast Warrior"
+    },
+    {
+      "trait_type": "Head",
+      "value": "Archer Hat"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Wooden Shield"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    }
+  ]
+}

@@ -1,35 +1,35 @@
 {
-  "name": "Chill Guins #21",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/21.png",
+  "name": "Lapinoz #21",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/21.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Green"
+      "value": "Brown"
     },
     {
-      "trait_type": "Body",
-      "value": "Black"
+      "trait_type": "Base",
+      "value": "Cosmic Entity"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Madness"
     },
     {
       "trait_type": "Clothes",
-      "value": "Beach Shirt"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Scar"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Smile Wide"
+      "value": "War Knight"
     },
     {
       "trait_type": "Head",
-      "value": "Stripes Towel"
+      "value": "Peasant Cap"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Greatsword"
     },
     {
       "trait_type": "Rarity",
-      "value": "Legendary"
+      "value": "Common"
     }
   ]
 }

@@ -1,0 +1,35 @@
+{
+  "name": "Lapinoz #578",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/578.png",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Ash"
+    },
+    {
+      "trait_type": "Base",
+      "value": "Darkness"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Worried"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "Peasant Farmers "
+    },
+    {
+      "trait_type": "Head",
+      "value": "Pilgrim Hat"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Dagger"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    }
+  ]
+}

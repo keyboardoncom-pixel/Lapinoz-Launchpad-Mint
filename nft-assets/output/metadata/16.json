@@ -1,31 +1,31 @@
 {
-  "name": "Chill Guins #16",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/16.png",
+  "name": "Lapinoz #16",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/16.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Yellow"
+      "value": "Brown"
     },
     {
-      "trait_type": "Body",
-      "value": "Grey"
+      "trait_type": "Base",
+      "value": "Deep Ocean"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Shyness"
     },
     {
       "trait_type": "Clothes",
-      "value": "Office Boy"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Closed"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Neutral"
+      "value": "Merchant"
     },
     {
       "trait_type": "Head",
-      "value": "Straw Hat"
+      "value": "Scholar Hat"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Cult Staff"
     },
     {
       "trait_type": "Rarity",

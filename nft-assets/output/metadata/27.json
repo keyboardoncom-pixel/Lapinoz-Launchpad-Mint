@@ -1,31 +1,31 @@
 {
-  "name": "Chill Guins #27",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/27.png",
+  "name": "Lapinoz #27",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/27.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Pink"
+      "value": "Sage"
     },
     {
-      "trait_type": "Body",
-      "value": "Black"
+      "trait_type": "Base",
+      "value": "Cosmic Entity"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Empty Smile"
     },
     {
       "trait_type": "Clothes",
-      "value": "Head Chef"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Closed"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Smile Wide"
+      "value": "Cult Robe"
     },
     {
       "trait_type": "Head",
-      "value": "Adventurers Headband"
+      "value": "Scholar Hat"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Ritual Sword"
     },
     {
       "trait_type": "Rarity",

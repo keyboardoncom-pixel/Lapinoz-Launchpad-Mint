@@ -1,0 +1,35 @@
+{
+  "name": "Lapinoz #368",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/368.png",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Ash"
+    },
+    {
+      "trait_type": "Base",
+      "value": "Deep Ocean"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Evil"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "Demon Knight"
+    },
+    {
+      "trait_type": "Head",
+      "value": "Archer Hat"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Battle Axe"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    }
+  ]
+}

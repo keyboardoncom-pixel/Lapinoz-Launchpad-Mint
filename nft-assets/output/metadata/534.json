@@ -1,0 +1,35 @@
+{
+  "name": "Lapinoz #534",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/534.png",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Ash"
+    },
+    {
+      "trait_type": "Base",
+      "value": "Darkness"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Evil"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "Corrupted Noble"
+    },
+    {
+      "trait_type": "Head",
+      "value": "Peasant Cap"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Dagger"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    }
+  ]
+}

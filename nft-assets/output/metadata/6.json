@@ -1,31 +1,31 @@
 {
-  "name": "Chill Guins #6",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/6.png",
+  "name": "Lapinoz #6",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/6.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Violet"
+      "value": "Ash"
     },
     {
-      "trait_type": "Body",
-      "value": "Brown"
+      "trait_type": "Base",
+      "value": "Cosmic Entity"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Shyness"
     },
     {
       "trait_type": "Clothes",
-      "value": "Beach Lifeguard"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Angry"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Neutral"
+      "value": "Corrupted Noble"
     },
     {
       "trait_type": "Head",
-      "value": "Flower Crown"
+      "value": "Scholar Hat"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Wooden Shield"
     },
     {
       "trait_type": "Rarity",

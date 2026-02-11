@@ -1,31 +1,31 @@
 {
-  "name": "Chill Guins #28",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/28.png",
+  "name": "Lapinoz #28",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/28.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "White"
+      "value": "Sage"
     },
     {
-      "trait_type": "Body",
-      "value": "Blue"
+      "trait_type": "Base",
+      "value": "Crimson King"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Smirking"
     },
     {
       "trait_type": "Clothes",
-      "value": "Ocean Sweater"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Open"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Smirk"
+      "value": "Chained Mail"
     },
     {
       "trait_type": "Head",
-      "value": "Aviary Goggles"
+      "value": "Iron Cage"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Cult Staff"
     },
     {
       "trait_type": "Rarity",

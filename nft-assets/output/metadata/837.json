@@ -1,0 +1,35 @@
+{
+  "name": "Lapinoz #837",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/837.png",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Beige"
+    },
+    {
+      "trait_type": "Base",
+      "value": "Deep Ocean"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Madness"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "Bone Necromancer"
+    },
+    {
+      "trait_type": "Head",
+      "value": "Penitent Helmet"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Execution Hammer"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    }
+  ]
+}

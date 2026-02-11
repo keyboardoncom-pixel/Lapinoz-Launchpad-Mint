@@ -1,31 +1,31 @@
 {
-  "name": "Chill Guins #85",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/85.png",
+  "name": "Lapinoz #85",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/85.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Pink"
+      "value": "Sky"
     },
     {
-      "trait_type": "Body",
-      "value": "Purple"
+      "trait_type": "Base",
+      "value": "Darkness"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Madness"
     },
     {
       "trait_type": "Clothes",
-      "value": "Pirate King"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Open"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Neutral"
+      "value": "Demon Knight"
     },
     {
       "trait_type": "Head",
-      "value": "Visor Cap"
+      "value": "Nasal Helmet"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Cult Staff"
     },
     {
       "trait_type": "Rarity",

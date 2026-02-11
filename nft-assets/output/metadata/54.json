@@ -1,31 +1,31 @@
 {
-  "name": "Chill Guins #54",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/54.png",
+  "name": "Lapinoz #54",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/54.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Dark Blue"
+      "value": "Beige"
     },
     {
-      "trait_type": "Body",
-      "value": "Brown"
+      "trait_type": "Base",
+      "value": "Darkness"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Empty Smile"
     },
     {
       "trait_type": "Clothes",
-      "value": "Beach Lifeguard"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Scar"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Smirk"
+      "value": "Brigandine Armor"
     },
     {
       "trait_type": "Head",
-      "value": "Leaf Shade"
+      "value": "Stone Crown"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Halberd"
     },
     {
       "trait_type": "Rarity",

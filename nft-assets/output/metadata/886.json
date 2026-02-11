@@ -1,0 +1,35 @@
+{
+  "name": "Lapinoz #886",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/886.png",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Sky"
+    },
+    {
+      "trait_type": "Base",
+      "value": "Cosmic Entity"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Madness"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "Chained Mail"
+    },
+    {
+      "trait_type": "Head",
+      "value": "Flat Cap"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Dagger"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    }
+  ]
+}

@@ -1,31 +1,31 @@
 {
-  "name": "Chill Guins #102",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/102.png",
+  "name": "Lapinoz #102",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/102.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Blue"
+      "value": "Ash"
     },
     {
-      "trait_type": "Body",
-      "value": "Black"
+      "trait_type": "Base",
+      "value": "Cosmic Entity"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Evil"
     },
     {
       "trait_type": "Clothes",
-      "value": "Shark Hunter"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Closed"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Annoying"
+      "value": "War Knight"
     },
     {
       "trait_type": "Head",
-      "value": "Head Torch On"
+      "value": "Huntsman Hat"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Halberd"
     },
     {
       "trait_type": "Rarity",

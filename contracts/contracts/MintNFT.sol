@@ -11,7 +11,7 @@ import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 contract MintNFT is ERC721A, Ownable, Pausable, ReentrancyGuard {
     using Address for address payable;
 
-    uint256 public immutable maxSupply;
+    uint256 public maxSupply;
     uint256 public mintPrice;
     uint256 public maxMintPerWallet;
     uint256 public launchpadFee;
@@ -23,6 +23,7 @@ contract MintNFT is ERC721A, Ownable, Pausable, ReentrancyGuard {
 
     bool public revealed;
     bool public transfersLocked;
+    bool public metadataFrozen;
 
     struct Phase {
         string name;
@@ -48,6 +49,8 @@ contract MintNFT is ERC721A, Ownable, Pausable, ReentrancyGuard {
     event PhaseMerkleRootSet(uint256 indexed phaseId, bytes32 root);
     event LaunchpadFeeUpdated(uint256 fee);
     event FeeRecipientUpdated(address recipient);
+    event MaxSupplyUpdated(uint256 newMaxSupply);
+    event MetadataFrozen();
 
     constructor(
         string memory name_,
@@ -72,6 +75,7 @@ contract MintNFT is ERC721A, Ownable, Pausable, ReentrancyGuard {
 
         revealed = false;
         transfersLocked = true;
+        metadataFrozen = false;
         feeRecipient = msg.sender;
     }
 
@@ -119,19 +123,29 @@ contract MintNFT is ERC721A, Ownable, Pausable, ReentrancyGuard {
     }
 
     function setBaseURI(string memory newBaseURI) external onlyOwner {
+        require(!metadataFrozen, "Metadata frozen");
         baseURI = newBaseURI;
     }
 
     function setNotRevealedURI(string memory newNotRevealedURI) external onlyOwner {
+        require(!metadataFrozen, "Metadata frozen");
         notRevealedURI = newNotRevealedURI;
     }
 
     function setContractURI(string memory newContractURI) external onlyOwner {
+        require(!metadataFrozen, "Metadata frozen");
         contractURI = newContractURI;
     }
 
     function setRevealed(bool value) external onlyOwner {
+        require(!metadataFrozen, "Metadata frozen");
         revealed = value;
+    }
+
+    function freezeMetadata() external onlyOwner {
+        require(!metadataFrozen, "Metadata already frozen");
+        metadataFrozen = true;
+        emit MetadataFrozen();
     }
 
     function setTransfersLocked(bool locked) external onlyOwner {
@@ -148,6 +162,13 @@ contract MintNFT is ERC721A, Ownable, Pausable, ReentrancyGuard {
         require(recipient != address(0), "Zero recipient");
         feeRecipient = recipient;
         emit FeeRecipientUpdated(recipient);
+    }
+
+    function setMaxSupply(uint256 newMaxSupply) external onlyOwner {
+        require(newMaxSupply >= totalSupply(), "Below total supply");
+        require(newMaxSupply < maxSupply, "Must reduce");
+        maxSupply = newMaxSupply;
+        emit MaxSupplyUpdated(newMaxSupply);
     }
 
     function approve(address to, uint256 tokenId) public payable override {
@@ -287,6 +308,10 @@ contract MintNFT is ERC721A, Ownable, Pausable, ReentrancyGuard {
         uint256 balance = address(this).balance;
         require(balance > 0, "No ETH to withdraw");
         payable(owner()).sendValue(balance);
+    }
+
+    function withdrawableBalance() external view returns (uint256) {
+        return address(this).balance;
     }
 
     function _baseURI() internal view override returns (string memory) {

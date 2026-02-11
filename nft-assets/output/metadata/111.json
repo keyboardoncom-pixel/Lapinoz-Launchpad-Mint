@@ -1,31 +1,31 @@
 {
-  "name": "Chill Guins #111",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/111.png",
+  "name": "Lapinoz #111",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/111.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Brown"
+      "value": "Sage"
     },
     {
-      "trait_type": "Body",
-      "value": "Purple"
+      "trait_type": "Base",
+      "value": "Crimson King"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Smirking"
     },
     {
       "trait_type": "Clothes",
-      "value": "Beach Shirt"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Open"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Smirk"
+      "value": "Peasant Farmers "
     },
     {
       "trait_type": "Head",
-      "value": "Head Torch"
+      "value": "Broken Knight Helmet"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Wooden Shield"
     },
     {
       "trait_type": "Rarity",

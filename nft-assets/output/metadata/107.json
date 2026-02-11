@@ -1,31 +1,31 @@
 {
-  "name": "Chill Guins #107",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/107.png",
+  "name": "Lapinoz #107",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/107.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Green"
+      "value": "Ash"
     },
     {
-      "trait_type": "Body",
-      "value": "Blue"
+      "trait_type": "Base",
+      "value": "Darkness"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Evil"
     },
     {
       "trait_type": "Clothes",
-      "value": "Shark Hunter"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Closed"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Sad"
+      "value": "Bone Necromancer"
     },
     {
       "trait_type": "Head",
-      "value": "Spike Crown"
+      "value": "Jester Cap"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Battle Axe"
     },
     {
       "trait_type": "Rarity",

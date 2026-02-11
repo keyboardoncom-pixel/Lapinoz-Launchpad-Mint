@@ -1,31 +1,31 @@
 {
-  "name": "Chill Guins #98",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/98.png",
+  "name": "Lapinoz #98",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/98.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Cyan"
+      "value": "Beige"
     },
     {
-      "trait_type": "Body",
-      "value": "Brown"
+      "trait_type": "Base",
+      "value": "Deep Ocean"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Sorrow"
     },
     {
       "trait_type": "Clothes",
-      "value": "Holiday Shirt"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Closed"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Annoying"
+      "value": "Assassin"
     },
     {
       "trait_type": "Head",
-      "value": "Old Straw Hat"
+      "value": "Broken Knight Helmet"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Battle Axe"
     },
     {
       "trait_type": "Rarity",

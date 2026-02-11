@@ -1,31 +1,31 @@
 {
-  "name": "Chill Guins #105",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/105.png",
+  "name": "Lapinoz #105",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/105.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Green"
+      "value": "Sky"
     },
     {
-      "trait_type": "Body",
-      "value": "Brown"
+      "trait_type": "Base",
+      "value": "Deep Ocean"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Madness"
     },
     {
       "trait_type": "Clothes",
-      "value": "Hoodie Vest"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Scar"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Annoying"
+      "value": "Poor Mantle"
     },
     {
       "trait_type": "Head",
-      "value": "Old Straw Hat"
+      "value": "Huntsman Hat"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Wooden Shield"
     },
     {
       "trait_type": "Rarity",

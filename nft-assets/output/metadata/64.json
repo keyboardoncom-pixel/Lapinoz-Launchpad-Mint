@@ -1,31 +1,31 @@
 {
-  "name": "Chill Guins #64",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/64.png",
+  "name": "Lapinoz #64",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/64.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Brown"
+      "value": "Sky"
     },
     {
-      "trait_type": "Body",
-      "value": "Brown"
+      "trait_type": "Base",
+      "value": "Cosmic Entity"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Madness"
     },
     {
       "trait_type": "Clothes",
-      "value": "Black Orange Hoodie"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Open"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Neutral"
+      "value": "Cult Robe"
     },
     {
       "trait_type": "Head",
-      "value": "Visor Cap"
+      "value": "Wizard Hat"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Greatsword"
     },
     {
       "trait_type": "Rarity",

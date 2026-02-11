@@ -1,0 +1,35 @@
+{
+  "name": "Lapinoz #1473",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/1473.png",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Sky"
+    },
+    {
+      "trait_type": "Base",
+      "value": "Darkness"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Worried"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "Eldritch Acolyte"
+    },
+    {
+      "trait_type": "Head",
+      "value": "Penitent Helmet"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Battle Axe"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    }
+  ]
+}

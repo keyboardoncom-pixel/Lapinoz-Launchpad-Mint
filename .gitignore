@@ -26,3 +26,11 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+.vercel
+
+# Large generated archives
+nft-assets/output/*.zip
+nft-assets/*.zip
+
+# Ignore accidental nested workspace
+New project/

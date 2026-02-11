@@ -1,31 +1,31 @@
 {
-  "name": "Chill Guins #70",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/70.png",
+  "name": "Lapinoz #70",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/70.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "Cyan"
+      "value": "Sage"
     },
     {
-      "trait_type": "Body",
-      "value": "Blue"
+      "trait_type": "Base",
+      "value": "Deep Ocean"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Smirking"
     },
     {
       "trait_type": "Clothes",
-      "value": "Red and Blue Hoodie"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Angry"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Smirk"
+      "value": "Bone Necromancer"
     },
     {
       "trait_type": "Head",
-      "value": "Captain Cap"
+      "value": "Iron Cage"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Dagger"
     },
     {
       "trait_type": "Rarity",

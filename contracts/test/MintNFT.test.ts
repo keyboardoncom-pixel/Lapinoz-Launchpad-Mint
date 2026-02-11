@@ -17,7 +17,7 @@ describe("MintNFT", function () {
     const contractURI = "ipfs://contract.json";
 
     const contract = await MintNFT.deploy(
-      "Chill Guins",
+      "Lapinoz",
       "CHILL",
       111n,
       ethers.parseEther("0.01"),
@@ -155,6 +155,38 @@ describe("MintNFT", function () {
     await contract.connect(user).publicMint(1, [], { value: ethers.parseEther("0.01") });
     expect(await contract.tokenURI(1)).to.equal(notRevealed);
     await contract.setRevealed(true);
+    expect(await contract.tokenURI(1)).to.equal(`${baseURI}1.json`);
+  });
+
+  it("freezes metadata only once", async () => {
+    const { contract } = await deployFixture();
+    await expect(contract.freezeMetadata()).to.emit(contract, "MetadataFrozen");
+    expect(await contract.metadataFrozen()).to.equal(true);
+    await expect(contract.freezeMetadata()).to.be.revertedWith("Metadata already frozen");
+  });
+
+  it("blocks metadata updates after freeze", async () => {
+    const { contract } = await deployFixture();
+    await contract.freezeMetadata();
+
+    await expect(contract.setBaseURI("ipfs://new-base/")).to.be.revertedWith("Metadata frozen");
+    await expect(contract.setContractURI("ipfs://new-contract.json")).to.be.revertedWith(
+      "Metadata frozen"
+    );
+    await expect(contract.setNotRevealedURI("ipfs://new-hidden.json")).to.be.revertedWith(
+      "Metadata frozen"
+    );
+    await expect(contract.setRevealed(true)).to.be.revertedWith("Metadata frozen");
+  });
+
+  it("keeps tokenURI immutable after metadata freeze", async () => {
+    const { contract, user, baseURI } = await deployFixture();
+    await contract.connect(user).publicMint(1, [], { value: ethers.parseEther("0.01") });
+    await contract.setRevealed(true);
+    expect(await contract.tokenURI(1)).to.equal(`${baseURI}1.json`);
+
+    await contract.freezeMetadata();
+    await expect(contract.setBaseURI("ipfs://other/")).to.be.revertedWith("Metadata frozen");
     expect(await contract.tokenURI(1)).to.equal(`${baseURI}1.json`);
   });
 

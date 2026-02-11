@@ -1,0 +1,35 @@
+{
+  "name": "Lapinoz #935",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/935.png",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Sky"
+    },
+    {
+      "trait_type": "Base",
+      "value": "Darkness"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Madness"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "Peasant Farmers "
+    },
+    {
+      "trait_type": "Head",
+      "value": "Plague Mask"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Wooden Shield"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Epic"
+    }
+  ]
+}

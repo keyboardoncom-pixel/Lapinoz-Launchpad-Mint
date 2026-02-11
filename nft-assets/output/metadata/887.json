@@ -1,0 +1,35 @@
+{
+  "name": "Lapinoz #887",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/887.png",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Brown"
+    },
+    {
+      "trait_type": "Base",
+      "value": "Darkness"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Evil"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "Brigandine Armor"
+    },
+    {
+      "trait_type": "Head",
+      "value": "Iron Halo Thorn"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Wooden Shield"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    }
+  ]
+}

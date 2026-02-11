@@ -1,35 +1,35 @@
 {
-  "name": "Chill Guins #47",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/47.png",
+  "name": "Lapinoz #47",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/47.png",
   "attributes": [
     {
       "trait_type": "Background",
-      "value": "White"
+      "value": "Brown"
     },
     {
-      "trait_type": "Body",
-      "value": "Black"
+      "trait_type": "Base",
+      "value": "Crimson King"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Shyness"
     },
     {
       "trait_type": "Clothes",
-      "value": "Grey Stripe Hoodie"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Tired"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Neutral"
+      "value": "Dark Knight"
     },
     {
       "trait_type": "Head",
-      "value": "Red Cap"
+      "value": "Cursed Crown"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Dagger"
     },
     {
       "trait_type": "Rarity",
-      "value": "Legendary"
+      "value": "Common"
     }
   ]
 }

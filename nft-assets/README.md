@@ -1,4 +1,4 @@
-# Chill Guins Metadata Generator
+# Lapinoz Metadata Generator
 
 This folder contains cleaned layer assets and a generator to produce final images + metadata.
 

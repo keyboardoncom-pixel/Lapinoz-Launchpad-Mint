@@ -1,31 +1,31 @@
 {
-  "name": "Chill Guins #109",
-  "description": "Chill Guins collection",
-  "image": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/109.png",
+  "name": "Lapinoz #109",
+  "description": "Lapinoz collection",
+  "image": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/109.png",
   "attributes": [
     {
       "trait_type": "Background",
       "value": "Brown"
     },
     {
-      "trait_type": "Body",
-      "value": "Brown"
+      "trait_type": "Base",
+      "value": "Cosmic Entity"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Worried"
     },
     {
       "trait_type": "Clothes",
-      "value": "Red and Blue Hoodie"
-    },
-    {
-      "trait_type": "Eyes",
-      "value": "Angry"
-    },
-    {
-      "trait_type": "Mouth",
-      "value": "Annoying"
+      "value": "Assassin"
     },
     {
       "trait_type": "Head",
-      "value": "Red Cap"
+      "value": "Plague Mask"
+    },
+    {
+      "trait_type": "Foreground",
+      "value": "Ritual Sword"
     },
     {
       "trait_type": "Rarity",

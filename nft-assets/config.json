@@ -1,12 +1,20 @@
 {
-  "collectionName": "Chill Guins",
-  "description": "Chill Guins collection",
-  "supply": 111,
-  "imageBaseUri": "ipfs://bafybeicciwjszlpoydoy45jzxdpetvruro3ts7hk5x6ave45qmiuizlmh4/",
-  "layersOrder": ["Background", "Body", "Clothes", "Eyes", "Mouth", "Head"],
+  "collectionName": "Lapinoz",
+  "description": "Lapinoz collection",
+  "supply": 1515,
+  "outputSize": 1024,
+  "imageBaseUri": "ipfs://bafybeia4gdhfj2bcako3sp6e4uhdzsfnbviwojscawmpi3t6e75vb7dyw4/",
+  "layersOrder": [
+    "Background",
+    "Base",
+    "Face",
+    "Clothes",
+    "Head",
+    "Foreground"
+  ],
   "rarityDistribution": {
     "Legendary": 5,
-    "Epic": 17,
-    "Common": 89
+    "Epic": 15,
+    "Common": 80
   }
 }
