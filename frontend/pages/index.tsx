@@ -332,16 +332,6 @@ export default function Home() {
   const canMint = useMemo(() => {
     return isConnected && isCorrectChain && phaseLive && !paused && allowlistOk;
   }, [isConnected, isCorrectChain, phaseLive, paused, allowlistOk]);
-  const totalCost = useMemo(() => {
-    try {
-      const priceWei = ethers.utils.parseEther(activePhase?.priceEth ?? mintPrice ?? "0");
-      const feeWei = ethers.utils.parseEther(launchpadFee || "0");
-      const totalWei = priceWei.add(feeWei).mul(quantity);
-      return ethers.utils.formatEther(totalWei);
-    } catch {
-      return "0";
-    }
-  }, [activePhase?.priceEth, mintPrice, launchpadFee, quantity]);
   const timeZoneLabel = "Local time";
   const resolveMedia = (uri: string) => {
     if (!uri) return uri;
@@ -416,10 +406,6 @@ export default function Home() {
           <span className="info-pill">Launched Feb 2026</span>
           <span className={`info-pill ${phaseLive && !paused ? "info-pill-live" : "info-pill-muted"}`}>
             {paused ? "Paused" : phaseLive ? "Minting Now" : "Mint Closed"}
-          </span>
-          <span className={`info-pill info-pill-freeze ${transfersLocked ? "is-on" : "is-off"}`}>
-            <img className="info-pill-icon" src="/icons/snowflake.png" alt="" />
-            Freeze Collection {transfersLocked ? "On" : "Off"}
           </span>
         </div>
 
@@ -537,21 +523,6 @@ export default function Home() {
                   <span className="phase-limit">
                     Limit {activePhase ? activePhase.limitPerWallet : "-"} per wallet
                   </span>
-                </div>
-              </div>
-
-              <div className="phase-summary">
-                <div className="summary-item">
-                  <span>Total cost</span>
-                  <span className="text-white">{totalCost} {NATIVE_SYMBOL}</span>
-                </div>
-                <div className="summary-item">
-                  <span>Launchpad fee</span>
-                  <span className="text-white">{launchpadFee} {NATIVE_SYMBOL} / mint</span>
-                </div>
-                <div className="summary-item">
-                  <span>Freeze collection</span>
-                  <span className="text-white">{transfersLocked ? "On" : "Off"}</span>
                 </div>
               </div>
 
