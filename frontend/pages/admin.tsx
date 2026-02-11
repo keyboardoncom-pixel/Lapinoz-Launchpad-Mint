@@ -72,20 +72,15 @@ export default function Admin() {
   const isTargetChain = TARGET_CHAIN_ID ? !!chain && chain.id === TARGET_CHAIN_ID : true;
   const isCorrectChain = isSupportedChain && isTargetChain;
 
-  const getAdminReadContract = async () => {
-    if (account) {
-      try {
-        return await getWriteContract(account, chain);
-      } catch {
-        // fall back to RPC provider below
-      }
-    }
+  const getAdminReadContract = () => {
+    // Always use the shared fallback RPC provider for reads.
+    // Using wallet signer/provider for reads can hit single-endpoint rate limits (429).
     return getReadContract();
   };
 
   const refresh = async () => {
     try {
-      const contract = await getAdminReadContract();
+      const contract = getAdminReadContract();
       const [
         ownerAddress,
         isPaused,
@@ -158,7 +153,7 @@ export default function Admin() {
 
   const refreshPhases = async () => {
     try {
-      const contract = await getAdminReadContract();
+      const contract = getAdminReadContract();
       const [count, active] = await withReadRetry(() =>
         Promise.all([contract.phaseCount(), contract.getActivePhase()])
       );
@@ -507,7 +502,7 @@ export default function Admin() {
       return;
     }
     try {
-      const contract = await getAdminReadContract();
+      const contract = getAdminReadContract();
       const statuses = await withReadRetry(() =>
         Promise.all(wallets.map((wallet) => contract.phaseAllowlist(allowlistPhaseId, wallet)))
       );
